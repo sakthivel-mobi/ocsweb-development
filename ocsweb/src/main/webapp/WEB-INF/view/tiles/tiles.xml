@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- Template Definition -->
+	<definition name="template-def"
+		template="/WEB-INF/view/tiles/layouts/defaultLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/view/tiles/templates/header.jsp" />
+		<!-- <put-attribute name="menu" value="/WEB-INF/view/tiles/templates/menu.jsp"/> -->
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/view/tiles/templates/footer.jsp" />
+	</definition>
+
+	<definition name="AddQuotation" extends="template-def">
+		<put-attribute name="title" value="Add" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/OrderList.jsp" />
+	</definition>
+
+	<definition name="OrderList" extends="template-def">
+		<put-attribute name="title" value="Order" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/OrderList.jsp" />
+	</definition>
+
+	<definition name="OrderView" extends="template-def">
+		<put-attribute name="title" value="OrderEdit" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/OrderView.jsp" />
+	</definition>
+
+	<definition name="OrderViewPaydee" extends="template-def">
+		<put-attribute name="title" value="OrderEditPaydee" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/OrderViewPaydee.jsp" />
+	</definition>
+
+	<!-- Quotation List -->
+	<definition name="QuotationList" extends="template-def">
+		<put-attribute name="title" value="Quotation" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/QuotationList.jsp" />
+	</definition>
+
+	<!-- Quotation View -->
+	<definition name="QuotationView" extends="template-def">
+		<put-attribute name="title" value="Quotation" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/QuotationView.jsp" />
+	</definition>
+
+	<!-- Products -->
+	<definition name="Products" extends="template-def">
+		<put-attribute name="title" value="Product" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/Products.jsp" />
+	</definition>
+
+	<definition name="ProductView" extends="template-def">
+		<put-attribute name="title" value="Product" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/ProductView.jsp" />
+	</definition>
+
+	<definition name="HostRateView" extends="template-def">
+		<put-attribute name="title" value="View Host Rate" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/HostRateView.jsp" />
+	</definition>
+
+
+	<definition name="HostRateHistoryView"
+		extends="template-def">
+		<put-attribute name="title" value="Host Rate History" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/HostRateHistoryView.jsp" />
+	</definition>
+
+	<definition name="WalletRateView" extends="template-def">
+		<put-attribute name="title" value="View Wallet Rate" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/WalletRateView.jsp" />
+	</definition>
+
+	<definition name="ProductViewPaydee" extends="template-def">
+		<put-attribute name="title" value="Product" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/ProductViewPaydee.jsp" />
+	</definition>
+
+	<definition name="ProductHistoryView" extends="template-def">
+		<put-attribute name="title" value="Product" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/ProductHistoryView.jsp" />
+	</definition>
+
+	<definition name="Signature" extends="template-def">
+		<put-attribute name="title" value="Signature View" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/Signature.jsp" />
+	</definition>
+
+	<definition name="MerchantOrder" extends="template-def">
+		<put-attribute name="title" value="Merchant Order" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/MerchantOrder.jsp" />
+	</definition>
+
+	<definition name="TPAList" extends="template-def">
+		<put-attribute name="title" value="TPA" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/TPAList.jsp" />
+	</definition>
+
+	<!-- Merchant Registration -->
+
+	<definition name="MerchantRegList" extends="template-def">
+		<put-attribute name="title" value="RegistrationList" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/MerchantRegList.jsp" />
+	</definition>
+
+	<definition name="MerchantRegView" extends="template-def">
+		<put-attribute name="title" value="RegistrationView" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/MerchantRegView.jsp" />
+	</definition>
+
+	<definition name="WelcomeLetter" extends="template-def">
+		<put-attribute name="title" value="WelcomeLetterView" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/WelcomeLetter.jsp" />
+	</definition>
+
+	<definition name="Approvals" extends="template-def">
+		<put-attribute name="title" value="ApprovalsView" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/Approvals.jsp" />
+	</definition>
+
+
+	<definition name="CallBackRequestList"
+		extends="template-def">
+		<put-attribute name="title" value="CallBackList" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/CallBackRequestList.jsp" />
+	</definition>
+
+
+	<definition name="MerchantQuotationView"
+		extends="template-def">
+		<put-attribute name="title" value="MerchantQuotation" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/MerchantQuotationView.jsp" />
+	</definition>
+
+	<!-- ${pageContext.request.contextPath}/MerchantOrder/Order -->
+
+	<definition name="MerchantOrderList" extends="template-def">
+		<put-attribute name="title" value="MerchantOrders" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/MerchantOrderList.jsp" />
+	</definition>
+
+	<definition name="CredentialsView" extends="template-def">
+		<put-attribute name="title" value="Credentials" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/CredentialsView.jsp" />
+	</definition>
+
+	<definition name="CredentialsList" extends="template-def">
+		<put-attribute name="title" value="Credentials" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/CredentialsList.jsp" />
+	</definition>
+	
+	<definition name="ExperianSearch" extends="template-def">
+		<put-attribute name="title" value="Experian Search" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/ExperianSearch.jsp" />
+	</definition>
+
+	<!-- OCS Data v1 -->
+
+	<definition name="dotnetData/MerchantDataList"
+		extends="template-def">
+		<put-attribute name="title" value="MerchantData List" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/dotnetData/MerchantDataList.jsp" />
+	</definition>
+
+	<definition name="dotnetData/MerchantDataView"
+		extends="template-def">
+		<put-attribute name="title" value="MerchantData View" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/dotnetData/MerchantDataView.jsp" />
+	</definition>
+
+
+
+</tiles-definitions>

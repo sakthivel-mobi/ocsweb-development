@@ -1,0 +1,306 @@
+.caption {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: -0.16px;
+  text-align: left;
+  color: #969696;
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.content {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  text-align: left;
+  color: #151931;
+  text-transform: capitalize;
+}
+
+.title {
+  color: #151931;
+  font-weight: bold;
+  text-transform: capitalize;
+  /* padding-bottom: 1.5rem; */
+}
+
+.title-accent {
+  color: #005baa;
+  font-weight: bold;
+  text-transform: capitalize;
+  padding-bottom: 1.5rem;
+}
+
+.body-1 {
+  color: black;
+  font-weight: bold;
+}
+
+.text-x-small {
+  font-size: x-small !important;
+}
+
+.text-small {
+  font-size: small !important;
+}
+
+.headline {
+  color: #151931;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  text-transform: capitalize;
+}
+
+.mobi-card {
+  border-radius: 12px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  border: solid 0px #ddd;
+  background-color: #fff;
+}
+
+.mobi-card-body {
+  padding: 1.5rem;
+}
+
+.mobi-card-footer {
+  background-color: #005baa;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  text-align: center;
+  text-align: -webkit-center;
+  padding: 0.4rem;
+  color: white;
+  text-transform: uppercase;
+}
+
+.navbar-toggler {
+  position: absolute;
+  left: 0;
+}
+
+.navbar-toggler:focus {
+  text-decoration: none;
+  outline: 0;
+  box-shadow: 0 0 0 0rem;
+}
+
+.navbar-toggler {
+  border-color: transparent !important;
+}
+
+.nav-mobile .nav-item {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.69;
+  letter-spacing: normal;
+  text-align: left;
+  color: #151931;
+}
+
+.nav-mobile .nav-link {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  color: #151931 !important;
+}
+
+a.nav-link.active {
+  border-radius: 4px;
+  background-color: rgba(0, 91, 170, 0.3);
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.69;
+  letter-spacing: normal;
+  text-align: left;
+  z-index: 1;
+  color: rgba(0, 91, 170, 1) !important;
+}
+
+.btn-logout {
+  margin: 5rem;
+  border-radius: 4px;
+  background-color: #f4f4f4;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #005baa;
+}
+
+.btn-logout:active {
+  color: #005baa !important;
+}
+
+.btn-logout:focus {
+  color: #005baa !important;
+}
+
+.mt-3 {
+  margin-top: 1.5rem !important;
+}
+
+.bottom-fixed {
+  padding: 1.5rem !important;
+  background-color: #f9f9f9;
+  width: 100% !important;
+  display: flex;
+  position: fixed;
+  left: 0 !important;
+  bottom: 0 !important;
+  align-items: center;
+  justify-content: end;
+  flex-flow: row;
+  gap: 5px;
+  z-index: 1000;
+  box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.fs-2 {
+  font-size: 1.5rem !important;
+}
+
+.sticky-top {
+  background-color: #f9f9f9;
+  position: sticky;
+  top: 65px !important;
+  box-shadow: 0px 9px 13px -1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 9px 13px -1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 9px 13px -1px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+  top: 100px;
+  height: 100vh;
+  background-color: white;
+  padding: 0.5rem;
+  position: fixed;
+  right: 0;
+  width: 75px;
+  z-index: 999;
+  -webkit-transition: width 0.5s 0s ease;
+  -moz-transition: width 0.5s 0s ease;
+  -o-transition: width 0.5s 0s ease;
+  transition: width 0.5s 0s ease;
+
+  box-shadow: -4px -1px 5px 0px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: -4px -1px 5px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: -4px -1px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar:hover {
+  width: 250px;
+}
+
+.sidebar:hover.sidebar > .content > .sidebar-item > .sidebar-item-title {
+  visibility: visible;
+  display: block;
+}
+
+.sidebar > .content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar > .content > .sidebar-item:hover {
+  background-color: #005baa;
+  color: white;
+}
+
+.sidebar > .content > .sidebar-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 10px;
+  background-color: #b7d3df85;
+  padding: 1rem;
+  border-radius: 5rem;
+  width: 100%;
+  -webkit-transition: background 0.5s 0s ease-in-out;
+  -moz-transition: background 0.5s 0s ease-in-out;
+  -o-transition: background 0.5s 0s ease-in-out;
+  transition: background 0.5s 0s ease-in-out;
+  height: 54px;
+}
+
+.sidebar > .content > .sidebar-item > .sidebar-item-title {
+  font-weight: bold;
+  font-size: 18px;
+  /* width: 100%; */
+  display: none;
+  visibility: hidden;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  #desktop-view {
+    display: none;
+  }
+  #mobile-view {
+    /* display: block; */
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  #desktop-view {
+    display: none;
+  }
+  #mobile-view {
+    display: block;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  #desktop-view {
+    display: block;
+  }
+  #mobile-view {
+    display: none;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  #desktop-view {
+    display: block;
+  }
+  #mobile-view {
+    display: none;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  #desktop-view {
+    display: block;
+  }
+  #mobile-view {
+    display: none;
+  }
+}
