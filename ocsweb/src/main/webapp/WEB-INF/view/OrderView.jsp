@@ -883,7 +883,7 @@
 											<div class="mb-3" id="input-file-block">
 												<label for="input-file-upload" class="form-label">Select
 													file to upload</label> <input class="form-control action-input"
-													type="file" id="input-file-upload"
+													type="file" id="input-file-upload" multiple
 													placeholder="Select one or more file to upload"
 													accept="application/*,image/*" disabled>
 												<p class="error-text">Select file type to choose a file</p>
