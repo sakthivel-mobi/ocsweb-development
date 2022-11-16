@@ -2907,7 +2907,7 @@
 									quotationName.innerHTML = item.documentName
 
 									const createdAt = document.createElement('td')
-									createdAt.innerHTML = moment(item.createdAt).format("DD/MM/YYYY hh:mm A")
+									createdAt.innerHTML = moment(item.createdAt).format("DD/MM/YYYY HH:mm:ss")
 
 									const action = document.createElement('td')
 
