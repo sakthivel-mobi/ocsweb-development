@@ -1,10 +1,8 @@
 package com.mobi.ocs.entity;
 
-import java.security.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,8 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,7 +19,6 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "orders")
@@ -36,7 +31,7 @@ public class Order {
 
 	@Column(name = "createdOn", updatable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private LocalDateTime createdOn;
+	private Date createdOn;
 
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
@@ -323,11 +318,11 @@ public class Order {
 		this.userId = userId;
 	}
 
-	public LocalDateTime getCreatedOn() {
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(LocalDateTime createdOn) {
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 

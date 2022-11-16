@@ -1,9 +1,11 @@
 package com.mobi.ocs.modal;
 
+import java.util.Date;
+
 public class MerchantOrderMobileResponseData {
 
 	private String id;
-	private String createdOn;
+	private Date createdOn;
 	private String productName;
 
 	public MerchantOrderMobileResponseData() {
@@ -18,11 +20,11 @@ public class MerchantOrderMobileResponseData {
 		this.id = id;
 	}
 
-	public String getCreatedOn() {
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(String createdOn) {
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 

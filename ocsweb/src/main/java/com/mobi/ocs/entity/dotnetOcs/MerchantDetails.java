@@ -1,23 +1,12 @@
 package com.mobi.ocs.entity.dotnetOcs;
 
-import java.security.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -36,10 +25,10 @@ public class MerchantDetails {
 	private String IPAddress;
 
 	@Column(name = "CreatedOn")
-	private LocalDateTime createdOn;
+	private Date createdOn;
 	
 	@Column(name = "UpdatedOn")
-	private LocalDateTime updatedOn;
+	private Date updatedOn;
 	
 	@Column(name = "UserId")
 	private String UserId;
@@ -380,19 +369,19 @@ public class MerchantDetails {
 		this.id = id;
 	}
 	
-	public LocalDateTime getCreatedOn() {
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(LocalDateTime createdOn) {
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 
-	public LocalDateTime getUpdatedOn() {
+	public Date getUpdatedOn() {
 		return updatedOn;
 	}
 
-	public void setUpdatedOn(LocalDateTime updatedOn) {
+	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
 	}
 

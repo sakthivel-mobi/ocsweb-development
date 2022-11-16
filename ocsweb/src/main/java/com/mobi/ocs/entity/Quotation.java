@@ -39,11 +39,11 @@ public class Quotation {
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	@Column(name = "createdOn", updatable = false)
-	private LocalDateTime createdOn;
+	private Date createdOn;
 
 	@Column(name = "lastModified")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private LocalDateTime lastModified;
+	private Date lastModified;
 
 	@Column(name = "expiryDate")
 	private String expiryDate;
@@ -367,19 +367,19 @@ public class Quotation {
 		this.notes = notes;
 	}
 
-	public LocalDateTime getCreatedOn() {
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(LocalDateTime createdOn) {
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 
-	public LocalDateTime getLastModified() {
+	public Date getLastModified() {
 		return lastModified;
 	}
 
-	public void setLastModified(LocalDateTime lastModified) {
+	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
 	}
 

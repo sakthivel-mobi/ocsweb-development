@@ -17,7 +17,7 @@ public class SmtpEmailClient {
 		URL url;
 		System.out.println("attachment is " + message.getAttachment());
 		try {
-			url = new URL("http://192.168.10.202:3030/ElasticWebProject/EmailApi/attachment");
+			url = new URL("http://localhost:8081/SmtpWebProject/EmailApi/attachment");
 
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 

@@ -1,17 +1,13 @@
 package com.mobi.ocs.entity;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,7 +23,7 @@ public class HostRate {
 
 	@Column(name = "createdOn")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private LocalDateTime createdOn;
+	private Date createdOn;
 	
 	@Column(name = "name")
 	private String name;
@@ -190,11 +186,11 @@ public class HostRate {
 			this.id = id;
 		}
 
-		public LocalDateTime getCreatedOn() {
+		public Date getCreatedOn() {
 			return createdOn;
 		}
 
-		public void setCreatedOn(LocalDateTime createdOn) {
+		public void setCreatedOn(Date createdOn) {
 			this.createdOn = createdOn;
 		}
 

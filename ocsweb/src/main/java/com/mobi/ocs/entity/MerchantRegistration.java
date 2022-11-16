@@ -31,7 +31,7 @@ public class MerchantRegistration {
 
 	@Column(name = "createdOn")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private LocalDateTime createdOn;
+	private Date createdOn;
 
 	@JoinColumn(name = "orderId")
 	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
@@ -419,11 +419,11 @@ public class MerchantRegistration {
 		this.id = id;
 	}
 
-	public LocalDateTime getCreatedOn() {
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(LocalDateTime createdOn) {
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 

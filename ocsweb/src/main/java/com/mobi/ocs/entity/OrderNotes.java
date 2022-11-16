@@ -1,6 +1,6 @@
 package com.mobi.ocs.entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ public class OrderNotes {
 
 	@Column(name = "createdOn")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private LocalDateTime createdOn;
+	private Date createdOn;
 
 	@Column(name = "fromUser")
 	private String fromUser;
@@ -56,11 +56,11 @@ public class OrderNotes {
 		this.id = id;
 	}
 
-	public LocalDateTime getCreatedOn() {
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(LocalDateTime createdOn) {
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 

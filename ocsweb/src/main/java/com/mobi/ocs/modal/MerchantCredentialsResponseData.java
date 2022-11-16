@@ -1,10 +1,12 @@
 package com.mobi.ocs.modal;
 
+import java.util.Date;
+
 public class MerchantCredentialsResponseData {
 
 	private String quotationId;
 	private String orderId;
-	private String date;
+	private Date date;
 	private String companyName;
 	private String type;
 	private Boolean showCredentials;
@@ -29,11 +31,11 @@ public class MerchantCredentialsResponseData {
 		this.orderId = orderId;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

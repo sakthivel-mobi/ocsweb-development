@@ -1,28 +1,22 @@
 package com.mobi.ocs.dao;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.hibernate.sql.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.gson.Gson;
 import com.mobi.ocs.dto.CommonResponseData;
 import com.mobi.ocs.entity.MerchantRegistration;
 import com.mobi.ocs.entity.Order;
-import com.mobi.ocs.entity.OrderLines;
 import com.mobi.ocs.entity.Quotation;
 import com.mobi.ocs.entity.UmobileMCC;
-import com.mobi.ocs.modal.MerchantOrderMobileResponseData;
 import com.mobi.ocs.modal.MerchantRegistrationResponseData.MerchantRegistrationResponse;
 
 @Repository
@@ -74,7 +68,7 @@ public class MerchantRegistrationDAOImpl implements MerchantRegistrationDAO {
 
 		try {
 
-			LocalDateTime now = LocalDateTime.now();
+			Date now = new Date();
 
 			Session session = sessionFactory.getCurrentSession();
 			Order order = session.load(Order.class, Integer.parseInt(orderId));

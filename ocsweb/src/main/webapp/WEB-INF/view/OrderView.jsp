@@ -883,7 +883,7 @@
 											<div class="mb-3" id="input-file-block">
 												<label for="input-file-upload" class="form-label">Select
 													file to upload</label> <input class="form-control action-input"
-													type="file" id="input-file-upload"
+													type="file" id="input-file-upload" multiple
 													placeholder="Select one or more file to upload"
 													accept="application/*,image/*" disabled>
 												<p class="error-text">Select file type to choose a file</p>
@@ -1894,7 +1894,7 @@
 					const id = document.createElement("td")
 					id.innerText = count
 					const sendDate = document.createElement("td")
-					sendDate.innerText = item.sendDate
+					sendDate.innerText = moment(item.sendDate).format("DD/MM/YYYY HH:mm:ss")
 					const from = document.createElement("td")
 					from.innerText = item.from
 					const notifyTo = document.createElement("td")
@@ -1985,7 +1985,7 @@
 					toStage.style.textTransform = "uppercase"
 
 					const createdAt = document.createElement("td")
-					createdAt.innerText = moment(item.createdAt).format("DD/MM/YYYY hh:mm a")
+					createdAt.innerText = moment(item.createdAt).format("DD/MM/YYYY HH:mm:ss")
 
 					const userName = document.createElement("td")
 					userName.innerText = item.userName

@@ -1,250 +1,257 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-		<!doctype html>
-		<html lang="en">
+<!doctype html>
+<html lang="en">
 
-		<head>
-			<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<meta name="description" content="">
-			<meta name="author" content="">
-			<title>MOBI</title>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>MOBI</title>
 
-			<link rel="apple-touch-icon" sizes="57x57"
-				href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-57x57.png">
-			<link rel="apple-touch-icon" sizes="60x60"
-				href="${pageContext.request.contextPath}/resourcess/images/favicon/apple-icon-60x60.png">
-			<link rel="apple-touch-icon" sizes="72x72"
-				href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-72x72.png">
-			<link rel="apple-touch-icon" sizes="76x76"
-				href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-76x76.png">
-			<link rel="apple-touch-icon" sizes="114x114"
-				href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-114x114.png">
-			<link rel="apple-touch-icon" sizes="120x120"
-				href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-120x120.png">
-			<link rel="apple-touch-icon" sizes="144x144"
-				href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-144x144.png">
-			<link rel="apple-touch-icon" sizes="152x152"
-				href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-152x152.png">
-			<link rel="apple-touch-icon" sizes="180x180"
-				href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-180x180.png">
-			<link rel="icon" type="image/png" sizes="192x192"
-				href="${pageContext.request.contextPath}/resources/images/favicon/android-icon-192x192.png">
-			<link rel="icon" type="image/png" sizes="32x32"
-				href="${pageContext.request.contextPath}/resources/images/favicon/favicon-32x32.png">
-			<link rel="icon" type="image/png" sizes="96x96"
-				href="${pageContext.request.contextPath}/resources/images/favicon/favicon-96x96.png">
-			<link rel="icon" type="image/png" sizes="16x16"
-				href="${pageContext.request.contextPath}/resources/images/favicon/favicon-16x16.png">
-			<link rel="manifest" href="/manifest.json">
-			<meta name="msapplication-TileColor" content="#ffffff">
-			<meta name="msapplication-TileImage"
-				content="${pageContext.request.contextPath}/resources/images/favicon/ms-icon-144x144.png">
-			<meta name="theme-color" content="#f1f5fa">
-
-
-
-			<link rel="stylesheet" type="text/css"
-				href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-			<link rel="stylesheet" type="text/css"
-				href="${pageContext.request.contextPath}/resources/css/dataTables.bootstrap5.min.css">
-			<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/fonts.css">
+<link rel="apple-touch-icon" sizes="57x57"
+	href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60"
+	href="${pageContext.request.contextPath}/resourcess/images/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76"
+	href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120"
+	href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144"
+	href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152"
+	href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180"
+	href="${pageContext.request.contextPath}/resources/images/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"
+	href="${pageContext.request.contextPath}/resources/images/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="${pageContext.request.contextPath}/resources/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="${pageContext.request.contextPath}/resources/images/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="${pageContext.request.contextPath}/resources/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	content="${pageContext.request.contextPath}/resources/images/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#f1f5fa">
 
 
-			<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
-			<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 
-			<link rel="stylesheet" type="text/css"
-				href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-			<link rel="stylesheet" type="text/css"
-				href="${pageContext.request.contextPath}/resources/css/dataTables.bootstrap5.min.css">
-			<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/fonts.css">
-			<link rel="stylesheet" type="text/css"
-				href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/fonts/fonts.css">
 
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/jquery.dataTables.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/dataTables.bootstrap5.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-				
-				<script src="${pageContext.request.contextPath}/resources/js/axios.js"
+
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	content="${_csrf.headerName}" />
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/fonts/fonts.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css">
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/axios.js"
 	type="text/javascript"></script>
 
 
-			<%@ page isELIgnored="false" %>
-		</head>
+<%@ page isELIgnored="false"%>
+</head>
 
-		<body>
-
-
-			<style>
-				.form label {
-					color: #092540;
-				}
-
-				.form .form-control {
-					/*background-color: #f7f7f7; */
-					border-radius: 4px;
-					border: solid 1px #dedede;
-				}
-
-				.form textarea {
-					min-height: 240px;
-				}
-
-				.form h5 {
-					font-size: 30px;
-					font-weight: 600;
-					font-stretch: normal;
-					font-style: normal;
-					line-height: 1.6;
-					letter-spacing: normal;
-					text-align: left;
-					color: #425466;
-				}
-
-				.h-divider {
-					margin-top: 5px;
-					margin-bottom: 5px;
-					height: 1px;
-					width: 100%;
-					border-top: 1px solid #e2e2e2;
-				}
-
-				.item_img {
-					background-color: #005baa;
-					color: #fff;
-					padding: 3px;
-					opacity: 0.3;
-				}
-
-				.item_img_1 {
-					background-color: #f9d2a8;
-					color: #fff;
-					padding: 3px;
-					opacity: 0.3;
-				}
-
-				.too_small {
-					font-size: .575em
-				}
-
-				.btn-alt {
-					display: block;
-					padding: .375rem .75rem;
-					font-size: 1rem;
-					font-weight: 400;
-					line-height: 1.5;
-					background-clip: padding-box;
-					appearance: none;
-				}
-
-				.c005baa {
-					color: #005baa;
-				}
-
-				.c425466 {
-					color: #425466;
-				}
-
-				.btn-white {
-					border-radius: 4px;
-					box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-					background-color: #ffffff;
-					color: #7f8eab;
-				}
-
-				.sticky-div {
-					background-color: white;
-					position: sticky;
-					top: 5px;
-					padding: 10px 0px;
-					z-index: 1000
-				}
-
-				.error-text {
-					font-size: medium;
-					color: red;
-				}
-
-				.signature-view {
-					padding: .5rem;
-					width: 100%;
-					height: fit-content;
-					text-align: center;
-					text-align: -webkit-center;
-					border-radius: 4px;
-					background-color: #f1f5fa;
-					box-shadow: 3px 3px 12px 0px rgba(0, 0, 0, 0.1);
-					-webkit-box-shadow: 3px 3px 12px 0px rgba(0, 0, 0, 0.1);
-					-moz-box-shadow: 3px 3px 12px 0px rgba(0, 0, 0, 0.1);
-				}
-			</style>
-
-			<main class="container mt110">
-
-				<div class="row g-5 mb-5 sticky-div">
-					<div class="col-md-4 col-lg-4">
-						<h5 class="c425466 fw-bold">${order.businessName }</h5>
-					</div>
-					<div class="col-md-8 col-lg-7 ">
-						<button type="button" data-bs-toggle="modal" data-bs-target="#directorModal"
-							class="btn btn-white ">Add
-							Directors</button>
-						<button type="button" data-bs-toggle="modal" data-bs-target="#notesModal"
-							class="btn btn-white">Add
-							Notes</button>
-						<button id="btnMMADownload" class="btn btn-white enableForAllRoles">Download
-							MMA</button>
-						<button id="btnWelcomeLetterDownload" class="btn btn-white enableForAllRoles">Welcome
-							Letter</button>
-					</div>
-				</div>
+<body>
 
 
-				<div class="row-fluid g-5">
-					<div class="col-md-12 col-lg-12">
-						<div class="bg-white p-5 rounded form">
-							<h5 class="mb-3  mt-3">Business Details</h5>
+	<style>
+.form label {
+	color: #092540;
+}
+
+.form .form-control {
+	/*background-color: #f7f7f7; */
+	border-radius: 4px;
+	border: solid 1px #dedede;
+}
+
+.form textarea {
+	min-height: 240px;
+}
+
+.form h5 {
+	font-size: 30px;
+	font-weight: 600;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.6;
+	letter-spacing: normal;
+	text-align: left;
+	color: #425466;
+}
+
+.h-divider {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	height: 1px;
+	width: 100%;
+	border-top: 1px solid #e2e2e2;
+}
+
+.item_img {
+	background-color: #005baa;
+	color: #fff;
+	padding: 3px;
+	opacity: 0.3;
+}
+
+.item_img_1 {
+	background-color: #f9d2a8;
+	color: #fff;
+	padding: 3px;
+	opacity: 0.3;
+}
+
+.too_small {
+	font-size: .575em
+}
+
+.btn-alt {
+	display: block;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	background-clip: padding-box;
+	appearance: none;
+}
+
+.c005baa {
+	color: #005baa;
+}
+
+.c425466 {
+	color: #425466;
+}
+
+.btn-white {
+	border-radius: 4px;
+	box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+	background-color: #ffffff;
+	color: #7f8eab;
+}
+
+.sticky-div {
+	background-color: white;
+	position: sticky;
+	top: 5px;
+	padding: 10px 0px;
+	z-index: 1000
+}
+
+.error-text {
+	font-size: medium;
+	color: red;
+}
+
+.signature-view {
+	padding: .5rem;
+	width: 100%;
+	height: fit-content;
+	text-align: center;
+	text-align: -webkit-center;
+	border-radius: 4px;
+	background-color: #f1f5fa;
+	box-shadow: 3px 3px 12px 0px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 3px 3px 12px 0px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 3px 3px 12px 0px rgba(0, 0, 0, 0.1);
+}
+</style>
+
+	<main class="container mt110">
+
+		<div class="row g-5 mb-5 sticky-div">
+			<div class="col-md-4 col-lg-4">
+				<h5 class="c425466 fw-bold">${order.businessName }</h5>
+			</div>
+			<div class="col-md-8 col-lg-7 ">
+				<button type="button" data-bs-toggle="modal"
+					data-bs-target="#directorModal" class="btn btn-white ">Add
+					Directors</button>
+				<button type="button" data-bs-toggle="modal"
+					data-bs-target="#notesModal" class="btn btn-white">Add
+					Notes</button>
+				<button id="btnMMADownload" class="btn btn-white enableForAllRoles">Download
+					MMA</button>
+				<button id="btnWelcomeLetterDownload"
+					class="btn btn-white enableForAllRoles">Welcome Letter</button>
+			</div>
+		</div>
 
 
-							<form:form method="POST" action="" modelAttribute="order" id="orderForm">
-								<div>
-									<input type="hidden" name="quotation.stage" value="${order.quotation.stage }">
-									<input type="hidden" name="quotation.acquirer" value="${order.quotation.acquirer }">
+		<div class="row-fluid g-5">
+			<div class="col-md-12 col-lg-12">
+				<div class="bg-white p-5 rounded form">
+					<h5 class="mb-3  mt-3">Business Details</h5>
+
+
+					<form:form method="POST" action="" modelAttribute="order"
+						id="orderForm">
+						<div>
+							<input type="hidden" name="quotation.stage"
+								value="${order.quotation.stage }"> <input type="hidden"
+								name="quotation.acquirer" value="${order.quotation.acquirer }">
+						</div>
+
+						<div class="row g-3" style="display: none;">
+							<div class="col-sm-3  form-floating mb-3">
+								<div class="mb-3">
+									<form:label path="createdOn" class="form-label">Created On</form:label>
+									<div class="input-group mb-3">
+										<form:input id="createdOn" path="createdOn" type="text"
+											disabled="true" class="form-control" />
+										<span class="input-group-text"><i
+											class="fa fa-calendar"></i></span>
+									</div>
 								</div>
+							</div>
 
-								<div class="row g-3" style="display: none;">
-									<div class="col-sm-3  form-floating mb-3">
-										<div class="mb-3">
-											<form:label path="createdOn" class="form-label">Created On</form:label>
-											<div class="input-group mb-3">
-												<form:input id="createdOn" path="createdOn" type="text" disabled="true"
-													class="form-control" />
-												<span class="input-group-text"><i class="fa fa-calendar"></i></span>
-											</div>
-										</div>
+							<div class="col-sm-3  form-floating mb-3">
+								<div class="mb-3">
+									<form:label path="userId" class="form-label">User ID</form:label>
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1">60</span>
+										<form:input path="userId" class="form-control" placeholder=""
+											readonly="true" />
 									</div>
+								</div>
+							</div>
 
-									<div class="col-sm-3  form-floating mb-3">
-										<div class="mb-3">
-											<form:label path="userId" class="form-label">User ID</form:label>
-											<div class="input-group mb-3">
-												<span class="input-group-text" id="basic-addon1">60</span>
-												<form:input path="userId" class="form-control" placeholder=""
-													readonly="true" />
-											</div>
-										</div>
-									</div>
-
-									<%-- <div class="col-sm-3  form-floating mb-3">
+							<%-- <div class="col-sm-3  form-floating mb-3">
 										<div class="mb-3">
 											<form:label path="merchantIdType" class="form-label">Merchant Id Type
 											</form:label>
@@ -265,7 +272,8 @@
 								<div class="mb-3">
 									<form:label path="businessName" class="form-label">Business Name
 									</form:label>
-									<form:input path="businessName" class="form-control" placeholder="Business Name" />
+									<form:input path="businessName" class="form-control"
+										placeholder="Business Name" />
 								</div>
 							</div>
 
@@ -296,7 +304,8 @@
 								<div class="mb-3">
 
 									<form:label path="gstNo" class="form-label">GST No</form:label>
-									<form:input path="gstNo" class="form-control" placeholder="GST No" />
+									<form:input path="gstNo" class="form-control"
+										placeholder="GST No" />
 								</div>
 							</div>
 						</div>
@@ -306,40 +315,45 @@
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="websiteUrl" class="form-label">Website URL</form:label>
-									<form:input path="websiteUrl" class="form-control" placeholder="Website URL" />
+									<form:input path="websiteUrl" class="form-control"
+										placeholder="Website URL" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="officeNo" class="form-label">Office No</form:label>
-									<form:input path="officeNo" class="form-control" placeholder="Office No" />
+									<form:input path="officeNo" class="form-control"
+										placeholder="Office No" />
 								</div>
 							</div>
 
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="officeEmail" class="form-label">Office Email</form:label>
-									<form:input path="officeEmail" class="form-control" placeholder="Office Email" />
+									<form:input path="officeEmail" class="form-control"
+										placeholder="Office Email" />
 								</div>
 							</div>
-							
+
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="bankName" class="form-label">Bank Name</form:label>
-										<form:select path="bankName" class="form-select" name="bankName">
+									<form:select path="bankName" class="form-select"
+										name="bankName">
 										<form:option value="0">-----------Select-----------</form:option>
 										<c:forEach var="bank" items="${bankList}">
 											<form:option value="${bank.value}">${bank.name}</form:option>
 										</c:forEach>
 									</form:select>
-									</div>
+								</div>
 							</div>
 
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 
 									<form:label path="accountNo" class="form-label">Account No</form:label>
-									<form:input path="accountNo" class="form-control" placeholder="Account No" />
+									<form:input path="accountNo" class="form-control"
+										placeholder="Account No" />
 								</div>
 							</div>
 
@@ -353,7 +367,8 @@
 							<div class="col-sm-4  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="addressLine" class="form-label">Address line</form:label>
-									<form:input path="addressLine" class="form-control" placeholder="Address line" />
+									<form:input path="addressLine" class="form-control"
+										placeholder="Address line" />
 								</div>
 							</div>
 
@@ -387,7 +402,7 @@
 								<div class="mb-3">
 									<form:label path="country" class="form-label">Country</form:label>
 									<form:select path="country" class="form-select" name="country">
-									<form:option value="458">MALAYSIA</form:option>
+										<form:option value="458">MALAYSIA</form:option>
 										<c:forEach var="country" items="${CountryList}">
 											<form:option value="${country.value}">${country.name}</form:option>
 										</c:forEach>
@@ -397,7 +412,8 @@
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="postCode" class="form-label">Post Code</form:label>
-									<form:input path="postCode" class="form-control" placeholder="Post Code" />
+									<form:input path="postCode" class="form-control"
+										placeholder="Post Code" />
 								</div>
 							</div>
 						</div>
@@ -439,9 +455,11 @@
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 
-									<form:label path="authContactPersonNationality" class="form-label">Authorized
+									<form:label path="authContactPersonNationality"
+										class="form-label">Authorized
 										Contact Nationality</form:label>
-									<form:input path="authContactPersonNationality" class="form-control"
+									<form:input path="authContactPersonNationality"
+										class="form-control"
 										placeholder="Authorized Contact Nationality" />
 								</div>
 							</div>
@@ -449,7 +467,8 @@
 								<div class="mb-3">
 
 									<form:label path="salutation" class="form-label">Salutation</form:label>
-									<form:select path="salutation" class="form-select" name="salutation">
+									<form:select path="salutation" class="form-select"
+										name="salutation">
 										<form:option value="0">-----------Select-----------</form:option>
 										<c:forEach var="sal" items="${salutationList}">
 											<form:option value="${sal.value}">${sal.name}</form:option>
@@ -460,7 +479,8 @@
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="companyType" class="form-label">Company Type</form:label>
-									<form:select path="companyType" class="form-select" name="companyType">
+									<form:select path="companyType" class="form-select"
+										name="companyType">
 										<form:option value="0">-----------Select-----------</form:option>
 										<c:forEach var="type" items="${companyTypeList}">
 											<form:option value="${type.value}">${type.name}</form:option>
@@ -472,7 +492,8 @@
 								<div class="mb-3">
 									<form:label path="natureOfBusiness" class="form-label">Nature Of Business
 									</form:label>
-									<form:select path="natureOfBusiness" class="form-select" name="natureOfBusiness">
+									<form:select path="natureOfBusiness" class="form-select"
+										name="natureOfBusiness">
 
 										<c:forEach var="nob" items="${natureOfBusinessList}">
 											<form:option value="${nob.value}">${nob.name}</form:option>
@@ -488,7 +509,8 @@
 								<div class="mb-3">
 									<form:label path="businessType" class="form-label">Business Type
 									</form:label>
-									<form:select path="businessType" class="form-select" name="businessType">
+									<form:select path="businessType" class="form-select"
+										name="businessType">
 										<form:option value="0">-----------Select-----------</form:option>
 										<c:forEach var="type" items="${businessTypeList}">
 											<form:option value="${type.value}">${type.name}</form:option>
@@ -502,9 +524,10 @@
 									<form:label path="dateIncorporated" class="form-label">Date Incorporated
 									</form:label>
 									<div class="input-group mb-3">
-										<form:input id="dateIncorporated" path="dateIncorporated" type="text"
-											class="form-control datepick" />
-										<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+										<form:input id="dateIncorporated" path="dateIncorporated"
+											type="text" class="form-control datepick" />
+										<span class="input-group-text"><i
+											class="fa fa-calendar"></i></span>
 									</div>
 								</div>
 							</div>
@@ -546,14 +569,16 @@
 								<div class="mb-3">
 									<form:label path="premiseType" class="form-label">Premise Type
 									</form:label>
-									<form:input path="premiseType" class="form-control" placeholder="Premise Type" />
+									<form:input path="premiseType" class="form-control"
+										placeholder="Premise Type" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="propertyType" class="form-label">Property Type
 									</form:label>
-									<form:input path="propertyType" class="form-control" placeholder="Property Type" />
+									<form:input path="propertyType" class="form-control"
+										placeholder="Property Type" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
@@ -655,7 +680,8 @@
 								<div class="col-sm-3  form-floating mb-3">
 									<div class="mb-3">
 										<form:label path="currentAcquirer" class="form-label">Acquirer</form:label>
-										<form:select path="currentAcquirer" class="form-select" name="currentAcquirer">
+										<form:select path="currentAcquirer" class="form-select"
+											name="currentAcquirer">
 											<form:option value="0">-----------Select-----------</form:option>
 											<c:forEach var="acquirer" items="${acquirerList}">
 												<form:option value="${acquirer.value}">${acquirer.name}
@@ -668,7 +694,8 @@
 									<div class="mb-3">
 										<form:label path="eCommIndustry" class="form-label">E-Commerce Industry
 										</form:label>
-										<form:select path="eCommIndustry" class="form-select" name="eCommIndustry">
+										<form:select path="eCommIndustry" class="form-select"
+											name="eCommIndustry">
 											<form:option value="0">-----------Select-----------</form:option>
 											<c:forEach var="ecom" items="${eCommIndustryList}">
 												<form:option value="${ecom.value}">${ecom.name}</form:option>
@@ -680,14 +707,16 @@
 								<div class="col-sm-3  form-floating mb-3">
 									<div class="mb-3">
 										<form:label path="noOfMPOS" class="form-label">No.Of MPOS</form:label>
-										<form:input path="noOfMPOS" class="form-control" placeholder="" />
+										<form:input path="noOfMPOS" class="form-control"
+											placeholder="" />
 									</div>
 								</div>
 
 								<div class="col-sm-3  form-floating mb-3">
 									<div class="mb-3">
 										<form:label path="mPOSModel" class="form-label">MPOS Model</form:label>
-										<form:input path="mPOSModel" class="form-control" placeholder="" />
+										<form:input path="mPOSModel" class="form-control"
+											placeholder="" />
 									</div>
 								</div>
 							</div>
@@ -701,7 +730,8 @@
 
 										<form:label path="businessStartTime" class="form-label">Business Start Time
 										</form:label>
-										<form:input path="businessStartTime" class="form-control" placeholder="" />
+										<form:input path="businessStartTime" class="form-control"
+											placeholder="" />
 									</div>
 								</div>
 
@@ -710,15 +740,16 @@
 
 										<form:label path="businessEndTime" class="form-label">Business End Time
 										</form:label>
-										<form:input path="businessEndTime" class="form-control" placeholder="" />
+										<form:input path="businessEndTime" class="form-control"
+											placeholder="" />
 									</div>
 								</div>
 								<div class="col-sm-3  form-floating mb-3">
 									<div class="mb-3">
 
 										<form:label path="quotation.id" class="form-label">Quotation</form:label>
-										<form:input path="quotation.id" class="form-control" placeholder=""
-											readonly="true" />
+										<form:input path="quotation.id" class="form-control"
+											placeholder="" readonly="true" />
 									</div>
 								</div>
 								<div class="row g-3">
@@ -727,19 +758,22 @@
 										<div class="mb-3">
 											<form:label path="previousAcquirer" class="form-label">Previous Acquirer
 											</form:label>
-											<form:input path="previousAcquirer" class="form-control" placeholder="" />
+											<form:input path="previousAcquirer" class="form-control"
+												placeholder="" />
 										</div>
 									</div>
 
 									<div class="col-sm-3  form-floating mb-3">
 										<div class="mb-3">
-											<form:label path="previousAcquirerCeasedDate" class="form-label">
+											<form:label path="previousAcquirerCeasedDate"
+												class="form-label">
 												Previous Acquirer Ceased Date</form:label>
 											<div class="input-group mb-3">
 												<form:input id="previousAcquirerCeasedDate"
 													path="previousAcquirerCeasedDate" type="text"
 													class="form-control datepick" />
-												<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+												<span class="input-group-text"><i
+													class="fa fa-calendar"></i></span>
 											</div>
 										</div>
 									</div>
@@ -753,8 +787,8 @@
 								<div class="mb-3">
 									<form:label path="quotation.salesPerson" class="form-label">Sales Person
 									</form:label>
-									<form:select class="form-select" name="salesPerson" path="quotation.salesPerson.id"
-										id="salesPerson">
+									<form:select class="form-select" name="salesPerson"
+										path="quotation.salesPerson.id" id="salesPerson">
 										<form:option value="0">-----------Select-----------</form:option>
 										<c:forEach items="${salesPersons}" var="salesPersons">
 											<form:option value="${salesPersons.id}">
@@ -767,7 +801,8 @@
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="accountType" class="form-label">Account Type</form:label>
-									<form:select path="accountType" class="form-select" name="accountType">
+									<form:select path="accountType" class="form-select"
+										name="accountType">
 										<form:option value="0">-----------Select-----------</form:option>
 										<c:forEach var="type" items="${accountTypeList}">
 											<form:option value="${type.value}">${type.name}</form:option>
@@ -780,7 +815,8 @@
 
 									<form:label path="grabPayLatitude" class="form-label">Latitude
 									</form:label>
-									<form:input path="grabPayLatitude" class="form-control" placeholder="" />
+									<form:input path="grabPayLatitude" class="form-control"
+										placeholder="" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
@@ -788,7 +824,8 @@
 
 									<form:label path="grabPayLongitude" class="form-label">Longitude
 									</form:label>
-									<form:input path="grabPayLongitude" class="form-control" placeholder="" />
+									<form:input path="grabPayLongitude" class="form-control"
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -802,7 +839,8 @@
 								<div class="mb-3">
 
 									<form:label path="requestType" class="form-label">Request Type</form:label>
-									<form:input path="requestType" class="form-control" placeholder="" />
+									<form:input path="requestType" class="form-control"
+										placeholder="" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
@@ -810,7 +848,8 @@
 
 									<form:label path="mdrCredit" class="form-label">MDR Credit
 									</form:label>
-									<form:input path="mdrCredit" class="form-control" placeholder="" />
+									<form:input path="mdrCredit" class="form-control"
+										placeholder="" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
@@ -840,13 +879,15 @@
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 
-									<form:label path="quotation.payment.collectedOn" class="form-label">Payment Received
+									<form:label path="quotation.payment.collectedOn"
+										class="form-label">Payment Received
 										Date
 									</form:label>
 									<div class="input-group mb-3">
 										<form:input path="quotation.payment.collectedOn" type="text"
 											class="form-control datepick" />
-										<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+										<span class="input-group-text"><i
+											class="fa fa-calendar"></i></span>
 									</div>
 								</div>
 							</div>
@@ -859,23 +900,26 @@
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 									<form:label path="paydeeDTL" class="form-label">DTL</form:label>
-									<form:input path="paydeeDTL" id="paydee1" class="form-control" placeholder="" />
+									<form:input path="paydeeDTL" id="paydee1" class="form-control"
+										placeholder="" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 
 									<form:label path="paydeeMID" class="form-label">MID</form:label>
-									<form:input path="paydeeMID" id="paydee2" class="form-control" placeholder="" />
+									<form:input path="paydeeMID" id="paydee2" class="form-control"
+										placeholder="" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 
-									<form:label path="quotation.salesPerson.name" class="form-label">SalesPerson
+									<form:label path="quotation.salesPerson.name"
+										class="form-label">SalesPerson
 									</form:label>
-									<form:input path="quotation.salesPerson.name" id="paydee3" class="form-control"
-										placeholder="" readonly="true" />
+									<form:input path="quotation.salesPerson.name" id="paydee3"
+										class="form-control" placeholder="" readonly="true" />
 								</div>
 							</div>
 						</div>
@@ -886,14 +930,16 @@
 								<div class="mb-3">
 
 									<form:label path="paydeeTID" class="form-label">TID</form:label>
-									<form:input path="paydeeTID" id="paydee5" class="form-control" placeholder="" />
+									<form:input path="paydeeTID" id="paydee5" class="form-control"
+										placeholder="" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
 
 									<form:label path="paydeeMCC" class="form-label">MCC</form:label>
-									<form:input path="paydeeMCC" id="paydee6" class="form-control" placeholder="" />
+									<form:input path="paydeeMCC" id="paydee6" class="form-control"
+										placeholder="" />
 								</div>
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
@@ -901,8 +947,8 @@
 
 									<form:label path="masterMerchant" class="form-label">Master Merchant
 									</form:label>
-									<form:input path="masterMerchant" id="paydee4" class="form-control" placeholder=""
-										readonly="true" />
+									<form:input path="masterMerchant" id="paydee4"
+										class="form-control" placeholder="" readonly="true" />
 								</div>
 							</div>
 
@@ -910,158 +956,203 @@
 
 						<div class="col-sm-6  form-floating mb-3">
 							<div class="mb-3 ">
-								<label for="email" class="form-label col-12">&nbsp;</label> <input type="submit"
-									value="Submit" id="btnSubmit" class="btn btn-mobi btn-alt float-end">
+								<label for="email" class="form-label col-12">&nbsp;</label> <input
+									type="submit" value="Submit" id="btnSubmit"
+									class="btn btn-mobi btn-alt float-end">
 								<button id="btnUpdate" value="Update" name="Update"
 									class="btn btn-mobi btn-alt float-end me-2">Update</button>
 							</div>
 						</div>
 
-						</form:form>
+					</form:form>
 
-						<h5 class="mb-3  mt-3">Directors</h5>
+					<h5 class="mb-3  mt-3">Directors</h5>
 
 
+					<div class="row g-3">
+						<div class="table-responsive">
+							<table class="table" id="DirectorTable">
+								<thead>
+									<tr class="bcf4f4f4 c617075 fw500">
+										<th>ID</th>
+										<th>Name</th>
+										<th>Designation</th>
+										<th>Contact No</th>
+										<th>Nationality</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody class="c3f3f3f fw500 tblOrderLineBody"
+									id="table-director-body">
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+
+					<div class="h-divider"></div>
+					<h5 class="mb-3  mt-3">Signature</h5>
+
+					<div class="mt-4 mb-4">
+						<div class="row">
+							<div class="col-sm-12 col-lg-2">
+								<h6>${order.quotation.salesPerson.aliasName}</h6>
+								<div class="signature-view">
+									<img
+										style="border-radius: 8px; border: .2px solid #00000021; width: 128px; height: 128px;"
+										id="sales-signature"
+										src="${pageContext.request.contextPath}/resources/images/signature_not_available.png"
+										alt="" sizes="">
+								</div>
+
+							</div>
+							<div class="col-sm-12 col-lg-2">
+								<h6>Merchant Signature</h6>
+								<div class="signature-view">
+									<img id="merchant-signature"
+										style="border-radius: 8px; border: .2px solid #00000021; width: 128px; height: 128px;"
+										alt="" sizes=""
+										src="${pageContext.request.contextPath}/resources/images/signature_not_available.png">
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="h-divider"></div>
+					<h5 class="mb-3  mt-3">Documents</h5>
+
+					<p>Available Document</p>
+					<div id="document-available">
+						<table class="table table-responsive bcf4f4f4 c617075 fw500">
+							<thead>
+								<tr>
+									<th>File Name</th>
+									<th>Category</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody id="document-available-table-body"></tbody>
+						</table>
+					</div>
+
+					<button class="btn btn-primary" onclick="addDocument()">Add
+						Documents</button>
+					<div id="document-upload" style="margin-top: 20px; display: none;">
+						<div class="row">
+							<div class="col">
+								<label for="select-category" class="form-label">Select a
+									file type</label> <select name="" class="form-select"
+									id="select-category" placeholder="Select category">
+									<option selected value="0">Select file type</option>
+								</select>
+							</div>
+							<div class="col">
+								<div class="mb-3" id="input-file-block">
+									<label for="input-file-upload" class="form-label">Select
+										file to upload</label> <input class="form-control" type="file"
+										id="input-file-upload"
+										placeholder="Select one or more file to upload"
+										accept="application/*,image/*" disabled>
+									<p class="error-text">Select file type to choose a file</p>
+								</div>
+							</div>
+						</div>
+
+						<table class="table table-responsive bcf4f4f4 c617075 fw500"
+							id="table-document-upload">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>File Name</th>
+									<th>File Size</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody id="document-table-body"></tbody>
+						</table>
+
+						<div style="margin-top: 20px; display: none;" id="document-footer">
+							<span><button type="button"
+									class="btn btn-mobi btn-primary btn-sm"
+									id="upload-all-document">Upload Documents</button></span> <span><button
+									class="btn btn-sm btn-danger"
+									onclick="removeAllUploadedDocuments()">Remove All
+									Documents</button></span>
+						</div>
+					</div>
+					<div class="h-divider"></div>
+					<h5 class="mb-3  mt-3">Items</h5>
+
+					<div class="row g-3">
+						<div class="table-responsive">
+							<table class="table" id="OrderLineTable">
+								<thead>
+									<tr class="bcf4f4f4 c617075 fw500">
+										<th>Line ID</th>
+										<th>Description</th>
+										<th>Product</th>
+										<th>Quantity</th>
+										<th>Amount (RM)</th>
+									</tr>
+								</thead>
+								<tbody class="c3f3f3f fw500 tblOrderLineBody">
+
+									<c:forEach var="tempOrderLine" items="${orderLineList}"
+										varStatus="count">
+										<c:url var="viewLink" value="">
+											<c:param name="id" value="${tempOrderLine.id}"></c:param>
+										</c:url>
+
+										<tr>
+											<td>${tempOrderLine.id}</td>
+											<td>${tempOrderLine.product.productName}</td>
+											<td>${tempOrderLine.product.productType}</td>
+											<td>${tempOrderLine.quantity}</td>
+											<td style="text-align: center;">
+												${tempOrderLine.product.unitPrice}</td>
+
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+
+
+					<div>
+						<br>
+						<div class="h-divider"></div>
+						<h5 class="mb-3  mt-3">Notes</h5>
 						<div class="row g-3">
 							<div class="table-responsive">
-								<table class="table" id="DirectorTable">
+								<table class="table" id="NotesTable">
 									<thead>
 										<tr class="bcf4f4f4 c617075 fw500">
 											<th>ID</th>
-											<th>Name</th>
-											<th>Designation</th>
-											<th>Contact No</th>
-											<th>Nationality</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-									<tbody class="c3f3f3f fw500 tblOrderLineBody" id="table-director-body">
-									</tbody>
-								</table>
-							</div>
-						</div>
-
-
-						<div class="h-divider"></div>
-						<h5 class="mb-3  mt-3">Signature</h5>
-
-						<div class="mt-4 mb-4">
-							<div class="row">
-								<div class="col-sm-12 col-lg-2">
-									<h6>${order.quotation.salesPerson.aliasName}</h6>
-									<div class="signature-view">
-										<img style="
-										border-radius: 8px;
-										border: .2px solid #00000021;
-										width: 128px;
-										height: 128px;" id="sales-signature"
-											src="${pageContext.request.contextPath}/resources/images/signature_not_available.png"
-											alt="" sizes="">
-									</div>
-
-								</div>
-								<div class="col-sm-12 col-lg-2">
-									<h6>Merchant Signature</h6>
-									<div class="signature-view">
-										<img id="merchant-signature" style="
-										border-radius: 8px;
-										border: .2px solid #00000021;
-										width: 128px;
-										height: 128px;" alt="" sizes=""
-											src="${pageContext.request.contextPath}/resources/images/signature_not_available.png">
-									</div>
-
-								</div>
-							</div>
-						</div>
-						<div class="h-divider"></div>
-						<h5 class="mb-3  mt-3">Documents</h5>
-
-						<p>Available Document</p>
-						<div id="document-available">
-							<table class="table table-responsive bcf4f4f4 c617075 fw500">
-								<thead>
-									<tr>
-										<th>File Name</th>
-										<th>Category</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody id="document-available-table-body"></tbody>
-							</table>
-						</div>
-
-						<button class="btn btn-primary" onclick="addDocument()">Add
-							Documents</button>
-						<div id="document-upload" style="margin-top: 20px; display: none;">
-							<div class="row">
-								<div class="col">
-									<label for="select-category" class="form-label">Select
-										a file type</label> <select name="" class="form-select" id="select-category"
-										placeholder="Select category">
-										<option selected value="0">Select file type</option>
-									</select>
-								</div>
-								<div class="col">
-									<div class="mb-3" id="input-file-block">
-										<label for="input-file-upload" class="form-label">Select
-											file to upload</label> <input class="form-control" type="file"
-											id="input-file-upload" placeholder="Select one or more file to upload"
-											accept="application/*,image/*" disabled>
-										<p class="error-text">Select file type to choose a file</p>
-									</div>
-								</div>
-							</div>
-
-							<table class="table table-responsive bcf4f4f4 c617075 fw500" id="table-document-upload">
-								<thead>
-									<tr>
-										<th>S.No</th>
-										<th>File Name</th>
-										<th>File Size</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody id="document-table-body"></tbody>
-							</table>
-
-							<div style="margin-top: 20px; display: none;" id="document-footer">
-								<span><button type="button" class="btn btn-mobi btn-primary btn-sm"
-										id="upload-all-document">Upload Documents</button></span> <span><button
-										class="btn btn-sm btn-danger" onclick="removeAllUploadedDocuments()">Remove All
-										Documents</button></span>
-							</div>
-						</div>
-						<div class="h-divider"></div>
-						<h5 class="mb-3  mt-3">Items</h5>
-
-						<div class="row g-3">
-							<div class="table-responsive">
-								<table class="table" id="OrderLineTable">
-									<thead>
-										<tr class="bcf4f4f4 c617075 fw500">
-											<th>Line ID</th>
-											<th>Description</th>
-											<th>Product</th>
-											<th>Quantity</th>
-											<th>Amount (RM)</th>
+											<th>Send Date</th>
+											<th>From</th>
+											<th>Notify To</th>
+											<th>Subject</th>
+											<th>Notes</th>
 										</tr>
 									</thead>
 									<tbody class="c3f3f3f fw500 tblOrderLineBody">
 
-										<c:forEach var="tempOrderLine" items="${orderLineList}" varStatus="count">
-											<c:url var="viewLink" value="">
-												<c:param name="id" value="${tempOrderLine.id}"></c:param>
-											</c:url>
+										<c:forEach var="tempNotes" items="${order.notes}"
+											varStatus="count">
 
 											<tr>
-												<td>${tempOrderLine.id}</td>
-												<td>${tempOrderLine.product.productName}</td>
-												<td>${tempOrderLine.product.productType}</td>
-												<td>${tempOrderLine.quantity}</td>
-												<td style="text-align: center;">
-													${tempOrderLine.product.unitPrice}</td>
-
+												<td>${tempNotes.id}</td>
+												<%-- <td>${tempNotes.createdOn}</td> --%>
+												<fmt:parseDate value="${tempNotes.createdOn}"
+													pattern="yyyy-MM-dd HH:mm:ss" var="myDate" />
+												<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss"
+														value="${myDate}" /></td>
+												<td>${tempNotes.fromUser}</td>
+												<td>${tempNotes.notifyTo}</td>
+												<td>${tempNotes.subject}</td>
+												<td>${tempNotes.notes}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -1069,269 +1160,241 @@
 							</div>
 						</div>
 
+					</div>
+					<div>
+						<div class="h-divider"></div>
+						<h5 class="mb-3  mt-3">Stage</h5>
+						<div>
+							<table class="table table-responsive bcf4f4f4 c617075 fw500">
+								<thead>
+									<tr>
+										<th>From Stage</th>
+										<th>To Stage</th>
+										<th>Date</th>
+										<th>Authorized By</th>
+									</tr>
+								</thead>
+								<tbody id="stage-movement-table-body"></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
+	</main>
+
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/js/dataTables.bootstrap5.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+
+	<!-- Director Modal -->
+	<div class="modal fade" id="directorModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Director</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form:form action="">
+
+						<div class="row">
+							<div class="col-sm-12 col-md-6   form-floating mb-3">
+								<div class="mb-3">
+									<label class="form-label">ID Type</label> <select
+										class="form-control" name="merchantIdType" id="idType">
+										<option value="0">---------Select--------</option>
+										<c:forEach var="idType" items="${merchantIdTypeList}">
+											<option value="${idType.value}">${idType.name}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-sm-12 col-md-6   form-floating mb-3">
+								<div class="mb-3">
+									<label class="form-label">ID No</label> <input id="idNo"
+										class="form-control" placeholder="ID No" />
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12 col-md-6   form-floating mb-3">
+								<div class="mb-3">
+									<label class="form-label">Name</label> <input id="name"
+										class="form-control" placeholder="Director Name" />
+								</div>
+							</div>
+
+							<div class="col-sm-12 col-md-6  form-floating mb-3">
+								<div class="mb-3">
+									<label class="form-label">Designation</label> <input
+										id="designation" class="form-control"
+										placeholder="Designation" />
+								</div>
+							</div>
+						</div>
 
 						<div>
-							<br>
-							<div class="h-divider"></div>
-							<h5 class="mb-3  mt-3">Notes</h5>
-							<div class="row g-3">
-								<div class="table-responsive">
-									<table class="table" id="NotesTable">
-										<thead>
-											<tr class="bcf4f4f4 c617075 fw500">
-												<th>ID</th>
-												<th>Send Date</th>
-												<th>From</th>
-												<th>Notify To</th>
-												<th>Subject</th>
-												<th>Notes</th>
-											</tr>
-										</thead>
-										<tbody class="c3f3f3f fw500 tblOrderLineBody">
+							<p style="text-transform: uppercase;">
+								<span><img
+									src="${pageContext.request.contextPath}/resources/images/info_icon.svg"
+									alt=""></span> Additional Information
+							</p>
+						</div>
 
-											<c:forEach var="tempNotes" items="${order.notes}" varStatus="count">
+						<div class="row">
+							<div class="col-sm-12 col-md-6  form-floating mb-3">
+								<div class="mb-3">
+									<label class="form-label">Contact No</label> <input
+										id="contactNo" class="form-control" placeholder="Contact No" />
+								</div>
+							</div>
 
-												<tr>
-													<td>${tempNotes.id}</td>
-													<td>${tempNotes.createdOn}</td>
-													<td>${tempNotes.fromUser}</td>
-													<td>${tempNotes.notifyTo}</td>
-													<td>${tempNotes.subject}</td>
-													<td>${tempNotes.notes}</td>
-												</tr>
+							<div class="col-sm-12 col-md-6 form-floating mb-3">
+								<div class="col-sm-12  form-floating mb-3">
+									<p class="form-label">Nationality</p>
+									<div class="input-group mb-3">
+										<select class="form-control" name="nationality"
+											id="nationality">
+											<option value="MALAYSIA">MALAYSIA</option>
+											<option value="-1">-----------Select-----------</option>
+											<c:forEach var="country" items="${CountryList}">
+												<option value="${country.name}">${country.name}</option>
 											</c:forEach>
-										</tbody>
-									</table>
+										</select>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12  form-floating mb-3">
+								<div class="mb-3">
+									<label class="form-label">Address</label>
+									<textarea rows="2" cols="40" id="address" class="form-control"
+										placeholder="Address"></textarea>
 								</div>
 							</div>
+						</div>
 
+					</form:form>
+				</div>
+				<div>
+					<hr>
+					<div class="d-flex bd-highlight align-items-center p-4"
+						style="background-color: #f7f7f7;">
+						<div class="flex-grow-1" id="director-current-date"></div>
+						<button type="button" class="btn btn-secondary btn-sm m-2"
+							data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary btn-sm saveDirector">Add
+							Director</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!--Notes Modal -->
+	<div class="modal fade" id="notesModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="d-flex flex-row bd-highlight align-self-center">
+						<div class="flex-grow-1 bd-highlight">
+							<h5 class="modal-title" id="exampleModalLabel">Add Notes</h5>
 						</div>
 						<div>
-							<div class="h-divider"></div>
-							<h5 class="mb-3  mt-3">Stage</h5>
-							<div>
-								<table class="table table-responsive bcf4f4f4 c617075 fw500">
-									<thead>
-										<tr>
-											<th>From Stage</th>
-											<th>To Stage</th>
-											<th>Date</th>
-											<th>Authorized By</th>
-										</tr>
-									</thead>
-									<tbody id="stage-movement-table-body"></tbody>
-								</table>
-							</div>
+							<button type="button" class="btn btn-close"
+								data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 					</div>
-				</div>
-				</div>
+					<form:form action="" class="mt-5">
 
-			</main>
-
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/jquery.dataTables.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/dataTables.bootstrap5.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-
-			<!-- Director Modal -->
-			<div class="modal fade" id="directorModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Add Director</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<form:form action="">
-
-								<div class="row">
-									<div class="col-sm-12 col-md-6   form-floating mb-3">
-										<div class="mb-3">
-											<label class="form-label">ID Type</label> <select class="form-control"
-												name="merchantIdType" id="idType">
-												<option value="0">---------Select--------</option>
-												<c:forEach var="idType" items="${merchantIdTypeList}">
-													<option value="${idType.value}">${idType.name}</option>
-												</c:forEach>
-											</select>
-										</div>
-									</div>
-
-									<div class="col-sm-12 col-md-6   form-floating mb-3">
-										<div class="mb-3">
-											<label class="form-label">ID No</label> <input id="idNo"
-												class="form-control" placeholder="ID No" />
-										</div>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-12 col-md-6   form-floating mb-3">
-										<div class="mb-3">
-											<label class="form-label">Name</label> <input id="name" class="form-control"
-												placeholder="Director Name" />
-										</div>
-									</div>
-
-									<div class="col-sm-12 col-md-6  form-floating mb-3">
-										<div class="mb-3">
-											<label class="form-label">Designation</label> <input id="designation"
-												class="form-control" placeholder="Designation" />
-										</div>
-									</div>
-								</div>
-
-								<div>
-									<p style="text-transform: uppercase;">
-										<span><img
-												src="${pageContext.request.contextPath}/resources/images/info_icon.svg"
-												alt=""></span> Additional Information
-									</p>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-12 col-md-6  form-floating mb-3">
-										<div class="mb-3">
-											<label class="form-label">Contact No</label> <input id="contactNo"
-												class="form-control" placeholder="Contact No" />
-										</div>
-									</div>
-
-									<div class="col-sm-12 col-md-6 form-floating mb-3">
-										<div class="col-sm-12  form-floating mb-3">
-											<p class="form-label">Nationality</p>
-											<div class="input-group mb-3">
-												<select class="form-control" name="nationality" id="nationality">
-												<option value="MALAYSIA">MALAYSIA</option>
-													<option value="-1">-----------Select-----------</option>
-													<c:forEach var="country" items="${CountryList}">
-														<option value="${country.name}">${country.name}</option>
-													</c:forEach>
-												</select>
-											</div>
-										</div>
-
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-12  form-floating mb-3">
-										<div class="mb-3">
-											<label class="form-label">Address</label>
-											<textarea rows="2" cols="40" id="address" class="form-control"
-												placeholder="Address"></textarea>
-										</div>
-									</div>
-								</div>
-
-							</form:form>
-						</div>
-						<div>
-							<hr>
-							<div class="d-flex bd-highlight align-items-center p-4" style="background-color: #f7f7f7;">
-								<div class="flex-grow-1" id="director-current-date"></div>
-								<button type="button" class="btn btn-secondary btn-sm m-2"
-									data-bs-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary btn-sm saveDirector">Add
-									Director</button>
+						<div class="col  form-floating mb-3">
+							<div class="mb-3">
+								<label class="form-label">Notify To</label> <input id="notifyTo"
+									class="form-control" placeholder="Notify To" />
 							</div>
 						</div>
 
+						<div class="col  form-floating mb-3">
+							<div class="mb-3">
+								<label class="form-label">Subject</label> <input id="subject"
+									class="form-control" placeholder="Subject" />
+							</div>
+						</div>
+
+						<div class="col form-floating mb-3">
+							<div class="mb-3">
+								<label class="form-label">Notes</label>
+								<textarea rows="6" cols="40" id="notes" class="form-control"
+									placeholder="Notes"></textarea>
+							</div>
+						</div>
+
+					</form:form>
+				</div>
+
+				<div class="d-flex bd-highlight align-items-center p-4"
+					style="background-color: #f7f7f7;">
+					<div class="flex-grow-1 bd-highlight">
+						<p style="margin: 0px;" id="notes-current-date"></p>
+					</div>
+					<div class="bd-highlight m-2">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Close</button>
+					</div>
+					<div class="bd-highlight m-2">
+						<button type="button" class="btn btn-primary saveNotes">Add
+							Notes</button>
 					</div>
 				</div>
 			</div>
-			<!--Notes Modal -->
-			<div class="modal fade" id="notesModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-body">
-							<div class="d-flex flex-row bd-highlight align-self-center">
-								<div class="flex-grow-1 bd-highlight">
-									<h5 class="modal-title" id="exampleModalLabel">Add Notes</h5>
-								</div>
-								<div>
-									<button type="button" class="btn btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-								</div>
-							</div>
-							<form:form action="" class="mt-5">
+		</div>
+	</div>
 
-								<div class="col  form-floating mb-3">
-									<div class="mb-3">
-										<label class="form-label">Notify To</label> <input id="notifyTo"
-											class="form-control" placeholder="Notify To" />
-									</div>
-								</div>
 
-								<div class="col  form-floating mb-3">
-									<div class="mb-3">
-										<label class="form-label">Subject</label> <input id="subject"
-											class="form-control" placeholder="Subject" />
-									</div>
-								</div>
+	<!-- Modal -->
+	<div class="modal fade" id="paymentConfirmationModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="ModalLabel">Verify Payment</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<label>New Order has been Created!</label>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">No</button>
 
-								<div class="col form-floating mb-3">
-									<div class="mb-3">
-										<label class="form-label">Notes</label>
-										<textarea rows="6" cols="40" id="notes" class="form-control"
-											placeholder="Notes"></textarea>
-									</div>
-								</div>
-
-							</form:form>
-						</div>
-
-						<div class="d-flex bd-highlight align-items-center p-4" style="background-color: #f7f7f7;">
-							<div class="flex-grow-1 bd-highlight">
-								<p style="margin: 0px;" id="notes-current-date"></p>
-							</div>
-							<div class="bd-highlight m-2">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							</div>
-							<div class="bd-highlight m-2">
-								<button type="button" class="btn btn-primary saveNotes">Add Notes</button>
-							</div>
-						</div>
-					</div>
+					<button type="button" class="btn btn-primary"
+						href="/Quotation/QuotationView?id=${quotation.id}">
+						<a href="QuotationView?id=${quotation.id}&" />Ok
+					</button>
 				</div>
 			</div>
-
-
-			<!-- Modal -->
-			<div class="modal fade" id="paymentConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="ModalLabel">Verify Payment</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<label>New Order has been Created!</label>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-
-							<button type="button" class="btn btn-primary"
-								href="/Quotation/QuotationView?id=${quotation.id}">
-								<a href="QuotationView?id=${quotation.id}&" />Ok
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</body>
-		<script type="text/javascript">
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
 			var contextPath = "${pageContext.request.contextPath}"
 			var orderId = ${ order.id }
 			var isQuotationAccepted = ${ order.quotation.quotationAccepted }
@@ -1738,7 +1801,7 @@
 
 
 					const createdAt = document.createElement("td")
-					createdAt.innerText = moment(item.createdAt).format("DD/MM/YYYY hh:mm a")
+					createdAt.innerText = moment(item.createdAt).format("DD/MM/YYYY HH:mm:ss")
 
 					const userName = document.createElement("td")
 					userName.innerText = item.userName
@@ -2233,4 +2296,4 @@
 			}
 		</script>
 
-		</html>
+</html>

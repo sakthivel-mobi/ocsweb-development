@@ -95,7 +95,7 @@ public class MerchantOrderRestController {
 				MerchantOrderListItemResponseData response = new MerchantOrderListItemResponseData();
 				response.setId(String.valueOf(item.getId()));
 				response.setCreatedAt(
-						String.valueOf(item.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMM, yyyy"))));
+						String.valueOf(item.getCreatedOn()));
 
 				response.setQuotationId(String.valueOf(item.getQuotation().getId()));
 
@@ -153,7 +153,7 @@ public class MerchantOrderRestController {
 				data.setCompanyName(order.getBusinessName());
 				data.setType(order.getQuotation().getOrderType());
 				data.setQuotationId(String.valueOf(order.getQuotation().getId()));
-				data.setDate(order.getCreatedOn().format(DateTimeFormatter.ISO_DATE));
+				data.setDate(order.getCreatedOn());
 
 				MerchantRegistration merchantRegistration = (MerchantRegistration) merchantRegistrationService
 						.getMerchantRegistrationByOrderId(String.valueOf(order.getId()));

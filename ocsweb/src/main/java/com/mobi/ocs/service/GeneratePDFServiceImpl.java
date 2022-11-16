@@ -1,18 +1,14 @@
 package com.mobi.ocs.service;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,65 +17,45 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.aop.config.AbstractInterceptorDrivenBeanDefinitionDecorator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.io.source.ByteArrayOutputStream;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPCellEvent;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.itextpdf.text.pdf.draw.LineSeparator;
-import com.mchange.v2.cfg.PropertiesConfigSource.Parse;
-import com.mobi.ocs.controller.QuotationController;
-import com.mobi.ocs.dao.MerchantDAO;
-import com.mobi.ocs.dao.MerchantDAOImpl;
 import com.mobi.ocs.dto.CommonResponseData;
 import com.mobi.ocs.dto.MMAResponseDataModal;
-import com.mobi.ocs.controller.MerchantRegistrationController;
 import com.mobi.ocs.dto.SysParam;
 import com.mobi.ocs.entity.CompanyType;
 import com.mobi.ocs.entity.Director;
 import com.mobi.ocs.entity.Order;
 import com.mobi.ocs.entity.OrderLines;
 import com.mobi.ocs.entity.Quotation;
-import com.mobi.ocs.entity.Signature;
 import com.mobi.ocs.modal.QuotationRequestData;
 import com.mobi.ocs.utilities.Constants;
-import com.mobi.ocs.utilities.RoundedBorder;
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
-
-import javassist.expr.NewArray;
 
 @Service
 @Transactional
@@ -338,8 +314,11 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 			PdfContentByte cbDate = writer.getDirectContent();
 			cbDate.beginText();
 			cbDate.setFontAndSize(f_cn, 20);
-			cbDate.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(quote.getCreatedOn()).split("T")[0], 295,
-					160, 0);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date quotationDate = quote.getCreatedOn();
+			String quotationdate = sdf.format(quotationDate.getTime());
+			cbDate.showTextAligned(PdfContentByte.ALIGN_CENTER, String.valueOf(quotationdate).split("T")[0], 295, 160,
+					0);
 			cbDate.endText();
 
 			// Mobi Logo & Address
@@ -366,10 +345,11 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 			phraseCompany.add(new Chunk("", normalFont));
 //			phraseCompany.add(new Chunk("Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa Sdn. Bhd.) (Reg.# 1105429-U)",
 //					boldFont));
-			
-			phraseCompany.add(new Chunk("Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa Sdn. Bhd.) (Reg.# 201401029343) (1105429-U)",
-                    boldFont));
-			
+
+			phraseCompany.add(new Chunk(
+					"Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa Sdn. Bhd.) (Reg.# 201401029343) (1105429-U)",
+					boldFont));
+
 //			phraseCompany.add(Chunk.NEWLINE);
 //			phraseCompany.add(new Chunk("Suite #07-01, Wisma UOA Damansara II, No. 6, Changkat Semantan,", normalFont));
 //			phraseCompany.add(Chunk.NEWLINE);
@@ -379,17 +359,17 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 //			phraseCompany.add(Chunk.NEWLINE);
 //			phraseCompany.add(new Chunk("Email : info@mobiversa.com", normalFont));
 //			phraseCompany.add(Chunk.NEWLINE);
-			
-			 phraseCompany.add(Chunk.NEWLINE);
-	            phraseCompany.add(new Chunk("17-109, Equatorial Plaza,", normalFont));
-	            phraseCompany.add(Chunk.NEWLINE);
-	            phraseCompany.add(new Chunk("Jalan Sultan Ismail,", normalFont));
-	            phraseCompany.add(Chunk.NEWLINE);
-	            phraseCompany.add(new Chunk("Kuala Lumpur 50250 , Malaysia", normalFont));
-	            phraseCompany.add(Chunk.NEWLINE);
-	            /* phraseCompany.add(new Chunk("Email : info@mobiversa.com", normalFont)); */
-	            phraseCompany.add(new Chunk("Email : info@gomobi.io", normalFont));
-	            phraseCompany.add(Chunk.NEWLINE);
+
+			phraseCompany.add(Chunk.NEWLINE);
+			phraseCompany.add(new Chunk("17-109, Equatorial Plaza,", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
+			phraseCompany.add(new Chunk("Jalan Sultan Ismail,", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
+			phraseCompany.add(new Chunk("Kuala Lumpur 50250 , Malaysia", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
+			/* phraseCompany.add(new Chunk("Email : info@mobiversa.com", normalFont)); */
+			phraseCompany.add(new Chunk("Email : info@gomobi.io", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
 
 			cellxxsign.disableBorderSide(15);
 			cellxxsign.addElement(phraseCompany);
@@ -425,10 +405,11 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 			phraseQuoteInfo.add(Chunk.NEWLINE);
 			phraseQuoteInfo.add(new Chunk("Date: ", boldFont));
 
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			String quotationDate = quote.getCreatedOn().format(formatter);
+			SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+			Date quotationDate1 = quote.getCreatedOn();
+			String quotationdate1 = sdf1.format(quotationDate.getTime());
 
-			phraseQuoteInfo.add(new Chunk(quotationDate, normalFont));
+			phraseQuoteInfo.add(new Chunk(quotationdate1, normalFont));
 			phraseQuoteInfo.add(Chunk.NEWLINE);
 			phraseQuoteInfo.add(new Chunk("Valid Upto: ", boldFont));
 			phraseQuoteInfo.add(new Chunk(quote.getExpiryDate() == null ? "" : quote.getExpiryDate(), normalFont));
@@ -888,9 +869,6 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 				}
 
 			}
-			
-			
-			
 
 //			// WALLET MDR TABLE
 //
@@ -1334,506 +1312,499 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 //			}
 //
 //			pdfDoc.add(wmdrTable1);
-			
-		
-			
-            for (OrderLines odc : odList) {
 
-                if (!odc.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+			for (OrderLines odc : odList) {
 
-                       logger.info("If the product IS EZYMOTO then SKIP Wallets...--->");
+				if (!odc.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
 
-                       Paragraph pwmdr = new Paragraph();
-                       PdfPTable wmdrTable = new PdfPTable(7);
+					logger.info("If the product IS EZYMOTO then SKIP Wallets...--->");
 
-                       float[] wmdrWidths = new float[] { 0.5f, 1f, 1f, 1f, 1f, 1f, 1f };
+					Paragraph pwmdr = new Paragraph();
+					PdfPTable wmdrTable = new PdfPTable(7);
 
-                       // if (od.getQuotationMDRRate().getIncludeWallet().equals("Yes"))
-                       // {
-                       discounttab.setHorizontalAlignment(Element.ALIGN_LEFT);
-                       if (odList.size() > 0) {
-                              pwmdr.setFont(boldFont);
-                             pwmdr.add("Wallets");
-                             pdfDoc.add(pwmdr);
-                             pdfDoc.add(p5);
-                              wmdrTable.setWidths(wmdrWidths);
-                              wmdrTable.setWidthPercentage(100f);
-                       wmdrTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                              wmdrTable.getDefaultCell().disableBorderSide(15);
-                              wmdrTable.getDefaultCell().enableBorderSide(2);
-                              wmdrTable.getDefaultCell().setBorderColor(new BaseColor(200, 224, 230));
-                              wmdrTable.getDefaultCell().setPaddingBottom(3f);
-                              wmdrTable.getDefaultCell().setBackgroundColor(new BaseColor(0, 91, 170));
-                             wmdrTable.addCell(new Phrase("Product", fontWhite));
-                             wmdrTable.addCell(new Phrase("Boost EComm", fontWhite));
-                             wmdrTable.addCell(new Phrase("Boost QR", fontWhite));
-                             wmdrTable.addCell(new Phrase("Grab EComm", fontWhite));
-                             wmdrTable.addCell(new Phrase("Grab QR", fontWhite));
+					float[] wmdrWidths = new float[] { 0.5f, 1f, 1f, 1f, 1f, 1f, 1f };
 
-                             wmdrTable.addCell(new Phrase("FPX(RM)", fontWhite));
-                             wmdrTable.addCell(new Phrase("FPX(%)", fontWhite));
-                              wmdrTable.getDefaultCell().setBackgroundColor(new BaseColor(255, 255, 255));
-                              discounttab.setHorizontalAlignment(Element.ALIGN_LEFT);
+					// if (od.getQuotationMDRRate().getIncludeWallet().equals("Yes"))
+					// {
+					discounttab.setHorizontalAlignment(Element.ALIGN_LEFT);
+					if (odList.size() > 0) {
+						pwmdr.setFont(boldFont);
+						pwmdr.add("Wallets");
+						pdfDoc.add(pwmdr);
+						pdfDoc.add(p5);
+						wmdrTable.setWidths(wmdrWidths);
+						wmdrTable.setWidthPercentage(100f);
+						wmdrTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+						wmdrTable.getDefaultCell().disableBorderSide(15);
+						wmdrTable.getDefaultCell().enableBorderSide(2);
+						wmdrTable.getDefaultCell().setBorderColor(new BaseColor(200, 224, 230));
+						wmdrTable.getDefaultCell().setPaddingBottom(3f);
+						wmdrTable.getDefaultCell().setBackgroundColor(new BaseColor(0, 91, 170));
+						wmdrTable.addCell(new Phrase("Product", fontWhite));
+						wmdrTable.addCell(new Phrase("Boost EComm", fontWhite));
+						wmdrTable.addCell(new Phrase("Boost QR", fontWhite));
+						wmdrTable.addCell(new Phrase("Grab EComm", fontWhite));
+						wmdrTable.addCell(new Phrase("Grab QR", fontWhite));
 
-                              image.scaleAbsolute(55f, 18f);
-                              image.setAlignment(Element.ALIGN_LEFT);
-                              cellxysign.addElement(new Paragraph("\n"));
-                              cellxysign.addElement(image);
-                              cellxysign.disableBorderSide(15);
-                              pdfsign.addCell(cellxysign);
+						wmdrTable.addCell(new Phrase("FPX(RM)", fontWhite));
+						wmdrTable.addCell(new Phrase("FPX(%)", fontWhite));
+						wmdrTable.getDefaultCell().setBackgroundColor(new BaseColor(255, 255, 255));
+						discounttab.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-                             for (OrderLines od : odList) {
-                                    if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                    } else {
-                                          if (od.getQuotationEzysplitMDRRate() != null) {
+						image.scaleAbsolute(55f, 18f);
+						image.setAlignment(Element.ALIGN_LEFT);
+						cellxysign.addElement(new Paragraph("\n"));
+						cellxysign.addElement(image);
+						cellxysign.disableBorderSide(15);
+						pdfsign.addCell(cellxysign);
 
-                                                 /*
-                                                 * URL grabPayPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/grabpay.png"); Image
-                                                 * gpimage = Image.getInstance(grabPayPath); gpimage.scaleAbsolute(11f, 4f);
-                                                 * gpimage.setAlignment(Element.ALIGN_LEFT); wmdrTable.addCell(gpimage);
-                                                 */
+						for (OrderLines od : odList) {
+							if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+							} else {
+								if (od.getQuotationEzysplitMDRRate() != null) {
 
-                                                discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                                                 wmdrTable.addCell(
-                                                              new Phrase(od.getQuotationEzysplitMDRRate().getProductType(), fontmoh4));
+									/*
+									 * URL grabPayPath =
+									 * getClass().getClassLoader().getResource("/assets/images/grabpay.png"); Image
+									 * gpimage = Image.getInstance(grabPayPath); gpimage.scaleAbsolute(11f, 4f);
+									 * gpimage.setAlignment(Element.ALIGN_LEFT); wmdrTable.addCell(gpimage);
+									 */
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                                        // wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
-                                                        // wmdrTable.getDefaultCell().disableBorderSide(15);
+									discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
+									wmdrTable.addCell(
+											new Phrase(od.getQuotationEzysplitMDRRate().getProductType(), fontmoh4));
+
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+										// wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
+										// wmdrTable.getDefaultCell().disableBorderSide(15);
 //                                               PdfPCell empty = new PdfPCell();
 //                                               empty.disableBorderSide(4);
-                                                        // empty.disableBorderSide(6);
-                                                        continue;
+										// empty.disableBorderSide(6);
+										continue;
 
-                                                 }
+									}
 
-                                                 else {
-                                                        wmdrTable.addCell(new Phrase(
-                                                              String.valueOf(od.getQuotationEzysplitMDRRate().getBoostMDREcomm())
-                                                                                  + "%",
-                                                                     fontmoh4));
-                                                 }
+									else {
+										wmdrTable.addCell(new Phrase(
+												String.valueOf(od.getQuotationEzysplitMDRRate().getBoostMDREcomm())
+														+ "%",
+												fontmoh4));
+									}
 
-                                                 wmdrTable.addCell(new Phrase(
-                                                        String.valueOf(od.getQuotationEzysplitMDRRate().getBoostMDRQR()) + "%",
-                                                              fontmoh4));
+									wmdrTable.addCell(new Phrase(
+											String.valueOf(od.getQuotationEzysplitMDRRate().getBoostMDRQR()) + "%",
+											fontmoh4));
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                                        wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+										wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
 //                                               //wmdrTable.flushContent();
 //                                               PdfPCell empty = new PdfPCell();
 //                                               empty.disableBorderSide(4);
 
-                                                 }
+									}
 
-                                                 else {
-                                                        wmdrTable.addCell(new Phrase(
-                                                              String.valueOf(od.getQuotationEzysplitMDRRate().getGrabMDREcomm())
-                                                                                  + "%",
-                                                                     fontmoh4));
+									else {
+										wmdrTable.addCell(new Phrase(
+												String.valueOf(od.getQuotationEzysplitMDRRate().getGrabMDREcomm())
+														+ "%",
+												fontmoh4));
 
-                                                 }
+									}
 
-                                                 wmdrTable.addCell(new Phrase(
-                                                        String.valueOf(od.getQuotationEzysplitMDRRate().getGrabMDRQR()) + "%",
-                                                              fontmoh4));
+									wmdrTable.addCell(new Phrase(
+											String.valueOf(od.getQuotationEzysplitMDRRate().getGrabMDRQR()) + "%",
+											fontmoh4));
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                                        wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
-                                                        wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+										wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
+										wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
 
-                                                 } else {
-                                                        wmdrTable.addCell(new Phrase(
-                                                              String.valueOf(od.getQuotationEzysplitMDRRate().getfPXMDR_RM()),
-                                                                     fontmoh4));
-                                                        wmdrTable.addCell(new Phrase(
-                                                              String.valueOf(od.getQuotationEzysplitMDRRate().getfPXMDR_Percent())
-                                                                                  + "%",
-                                                                     fontmoh4));
+									} else {
+										wmdrTable.addCell(new Phrase(
+												String.valueOf(od.getQuotationEzysplitMDRRate().getfPXMDR_RM()),
+												fontmoh4));
+										wmdrTable.addCell(new Phrase(
+												String.valueOf(od.getQuotationEzysplitMDRRate().getfPXMDR_Percent())
+														+ "%",
+												fontmoh4));
 
-                                                 }
-                                                 /*
-                                                 * if (od.getQuotationEzysplitMDRRate().getGrabSettlement() !=
-                                                 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase("T + " +
-                                                 * String.valueOf(od.getQuotationEzysplitMDRRate().getGrabSettlement()),
-                                                 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 */
+									}
+									/*
+									 * if (od.getQuotationEzysplitMDRRate().getGrabSettlement() !=
+									 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase("T + " +
+									 * String.valueOf(od.getQuotationEzysplitMDRRate().getGrabSettlement()),
+									 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 */
 
-                                               discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
+									discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                                                 /*
-                                                 * URL boostPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/boost.png"); Image
-                                                 * bimage = Image.getInstance(boostPath); bimage.scaleAbsolute(11f, 4f);
-                                                 * bimage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(bimage);
-                                                 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT); wmdrTable.addCell(
-                                                 * new Phrase(String.valueOf(od.getQuotationEzysplitMDRRate().getBoostMDR()) +
-                                                 * "%", fontmoh4)); if (od.getQuotationEzysplitMDRRate().getBoostSettlement() !=
-                                                 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationEzysplitMDRRate().getBoostSettlement()),
-                                                 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 * 
-                                                  * discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
-                                                 * 
-                                                  * URL fpxPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/fpx.png"); Image
-                                                 * fpximage = Image.getInstance(fpxPath); fpximage.scaleAbsolute(11f, 4f);
-                                                 * fpximage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(fpximage);
-                                                 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                                                 * wmdrTable.addCell(new Phrase( "RM" +
-                                                 * od.getQuotationEzysplitMDRRate().getfPXMDR_RM() + " or " +
-                                                 * od.getQuotationEzysplitMDRRate().getfPXMDR_Percent() +
-                                                 * "% whichever is higher", fontmoh4)); if
-                                                 * (od.getQuotationEzysplitMDRRate().getFpxSettlement() !=
-                                                 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationEzysplitMDRRate().getFpxSettlement()),
-                                                 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 */
+									/*
+									 * URL boostPath =
+									 * getClass().getClassLoader().getResource("/assets/images/boost.png"); Image
+									 * bimage = Image.getInstance(boostPath); bimage.scaleAbsolute(11f, 4f);
+									 * bimage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(bimage);
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT); wmdrTable.addCell(
+									 * new Phrase(String.valueOf(od.getQuotationEzysplitMDRRate().getBoostMDR()) +
+									 * "%", fontmoh4)); if (od.getQuotationEzysplitMDRRate().getBoostSettlement() !=
+									 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationEzysplitMDRRate().getBoostSettlement()),
+									 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 * 
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
+									 * 
+									 * URL fpxPath =
+									 * getClass().getClassLoader().getResource("/assets/images/fpx.png"); Image
+									 * fpximage = Image.getInstance(fpxPath); fpximage.scaleAbsolute(11f, 4f);
+									 * fpximage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(fpximage);
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
+									 * wmdrTable.addCell(new Phrase( "RM" +
+									 * od.getQuotationEzysplitMDRRate().getfPXMDR_RM() + " or " +
+									 * od.getQuotationEzysplitMDRRate().getfPXMDR_Percent() +
+									 * "% whichever is higher", fontmoh4)); if
+									 * (od.getQuotationEzysplitMDRRate().getFpxSettlement() !=
+									 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationEzysplitMDRRate().getFpxSettlement()),
+									 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 */
 
-                                          } else {
-                                                 /*
-                                                 * URL grabPayPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/grabpay.png"); Image
-                                                 * gpimage = Image.getInstance(grabPayPath); gpimage.scaleAbsolute(11f, 4f);
-                                                 * gpimage.setAlignment(Element.ALIGN_LEFT); wmdrTable.addCell(gpimage);
-                                                 */
+								} else {
+									/*
+									 * URL grabPayPath =
+									 * getClass().getClassLoader().getResource("/assets/images/grabpay.png"); Image
+									 * gpimage = Image.getInstance(grabPayPath); gpimage.scaleAbsolute(11f, 4f);
+									 * gpimage.setAlignment(Element.ALIGN_LEFT); wmdrTable.addCell(gpimage);
+									 */
 
-                                                 // discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                                                 wmdrTable.addCell(new Phrase(od.getQuotationMDRRate().getProductType(), fontmoh4));
+									// discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
+									wmdrTable.addCell(new Phrase(od.getQuotationMDRRate().getProductType(), fontmoh4));
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
 //                                               wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
-                                                        wmdrTable.getDefaultCell().disableBorderSide(15);
+										wmdrTable.getDefaultCell().disableBorderSide(15);
 //                                               wmdrTable.flushContent();
 //                                               PdfPCell empty = new PdfPCell();
 //                                               empty.disableBorderSide(4);
 
-                                                 }
+									}
 
-                                                 else {
+									else {
 
-                                                        wmdrTable.addCell(new Phrase(
-                                                                 String.valueOf(od.getQuotationMDRRate().getBoostMDREcomm()) + "%",
-                                                                     fontmoh4));
-                                                 }
+										wmdrTable.addCell(new Phrase(
+												String.valueOf(od.getQuotationMDRRate().getBoostMDREcomm()) + "%",
+												fontmoh4));
+									}
 
-                                                 wmdrTable.addCell(new Phrase(
-                                                              String.valueOf(od.getQuotationMDRRate().getBoostMDRQR()) + "%", fontmoh4));
+									wmdrTable.addCell(new Phrase(
+											String.valueOf(od.getQuotationMDRRate().getBoostMDRQR()) + "%", fontmoh4));
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                                        wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
-                                                        // wmdrTable.flushContent();
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+										wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
+										// wmdrTable.flushContent();
 //                                               PdfPCell empty = new PdfPCell();
 //                                               empty.disab/leBorderSide(4);
 
-                                                 }
+									}
 
-                                                 else {
+									else {
 
-                                                        wmdrTable.addCell(new Phrase(
-                                                                  String.valueOf(od.getQuotationMDRRate().getGrabMDREcomm()) + "%",
-                                                                     fontmoh4));
-                                                 }
+										wmdrTable.addCell(new Phrase(
+												String.valueOf(od.getQuotationMDRRate().getGrabMDREcomm()) + "%",
+												fontmoh4));
+									}
 
-                                                 wmdrTable.addCell(new Phrase(
-                                                               String.valueOf(od.getQuotationMDRRate().getGrabMDRQR()) + "%", fontmoh4));
+									wmdrTable.addCell(new Phrase(
+											String.valueOf(od.getQuotationMDRRate().getGrabMDRQR()) + "%", fontmoh4));
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                                        wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
-                                                        wmdrTable.addCell(new Phrase("NILLOSOS", fontmoh4));
-                                                        // wmdrTable.flushContent();
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+										wmdrTable.addCell(new Phrase("NILLOS", fontmoh4));
+										wmdrTable.addCell(new Phrase("NILLOSOS", fontmoh4));
+										// wmdrTable.flushContent();
 //                                               PdfPCell empty = new PdfPCell();
 //                                               empty.disableBorderSide(4);
 
-                                                 }
+									}
 
-                                                 else {
+									else {
 
-                                                        wmdrTable.addCell(new Phrase(
-                                                                    String.valueOf(od.getQuotationMDRRate().getfPXMDR_RM()), fontmoh4));
-                                                        wmdrTable.addCell(new Phrase(
-                                                                String.valueOf(od.getQuotationMDRRate().getfPXMDR_Percent()) + "%",
-                                                                     fontmoh4));
-                                                 }
-                                                 /*
-                                                 * if (od.getQuotationMDRRate().getGrabSettlement() != Integer.parseInt("0")) {
-                                                 * wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationMDRRate().getGrabSettlement()), fontmoh4)); }
-                                                 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 */
-                                               discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
+										wmdrTable.addCell(new Phrase(
+												String.valueOf(od.getQuotationMDRRate().getfPXMDR_RM()), fontmoh4));
+										wmdrTable.addCell(new Phrase(
+												String.valueOf(od.getQuotationMDRRate().getfPXMDR_Percent()) + "%",
+												fontmoh4));
+									}
+									/*
+									 * if (od.getQuotationMDRRate().getGrabSettlement() != Integer.parseInt("0")) {
+									 * wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationMDRRate().getGrabSettlement()), fontmoh4)); }
+									 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 */
+									discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                                                 /*
-                                                 * URL boostPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/boost.png"); Image
-                                                 * bimage = Image.getInstance(boostPath); bimage.scaleAbsolute(11f, 4f);
-                                                 * bimage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(bimage);
-                                                 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT); wmdrTable.addCell(
-                                                 * new Phrase(String.valueOf(od.getQuotationMDRRate().getBoostMDR()) + "%",
-                                                 * fontmoh4)); if (od.getQuotationMDRRate().getBoostSettlement() !=
-                                                 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationMDRRate().getBoostSettlement()), fontmoh4)); }
-                                                 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 * 
-                                                  * discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
-                                                 * 
-                                                  * URL fpxPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/fpx.png"); Image
-                                                 * fpximage = Image.getInstance(fpxPath); fpximage.scaleAbsolute(11f, 4f);
-                                                 * fpximage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(fpximage);
-                                                 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                                                 * wmdrTable.addCell(new Phrase( "RM" + od.getQuotationMDRRate().getfPXMDR_RM()
-                                                 * + " or " + od.getQuotationMDRRate().getfPXMDR_Percent() +
-                                                 * "% whichever is higher", fontmoh4)); if
-                                                 * (od.getQuotationMDRRate().getFpxSettlement() != Integer.parseInt("0")) {
-                                                 * wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationMDRRate().getFpxSettlement()), fontmoh4)); }
-                                                 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 * 
-                                                  * break;
-                                                 */
-                                          }
+									/*
+									 * URL boostPath =
+									 * getClass().getClassLoader().getResource("/assets/images/boost.png"); Image
+									 * bimage = Image.getInstance(boostPath); bimage.scaleAbsolute(11f, 4f);
+									 * bimage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(bimage);
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT); wmdrTable.addCell(
+									 * new Phrase(String.valueOf(od.getQuotationMDRRate().getBoostMDR()) + "%",
+									 * fontmoh4)); if (od.getQuotationMDRRate().getBoostSettlement() !=
+									 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationMDRRate().getBoostSettlement()), fontmoh4)); }
+									 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 * 
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
+									 * 
+									 * URL fpxPath =
+									 * getClass().getClassLoader().getResource("/assets/images/fpx.png"); Image
+									 * fpximage = Image.getInstance(fpxPath); fpximage.scaleAbsolute(11f, 4f);
+									 * fpximage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(fpximage);
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
+									 * wmdrTable.addCell(new Phrase( "RM" + od.getQuotationMDRRate().getfPXMDR_RM()
+									 * + " or " + od.getQuotationMDRRate().getfPXMDR_Percent() +
+									 * "% whichever is higher", fontmoh4)); if
+									 * (od.getQuotationMDRRate().getFpxSettlement() != Integer.parseInt("0")) {
+									 * wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationMDRRate().getFpxSettlement()), fontmoh4)); }
+									 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 * 
+									 * break;
+									 */
+								}
 
-                                          // }
-                                    }
+								// }
+							}
 
-                             }
-                       }
+						}
+					}
 
-                       pdfDoc.add(wmdrTable);
-                       // endregion
+					pdfDoc.add(wmdrTable);
+					// endregion
 
-                       // tng&shp start
+					// tng&shp start
 
-                       Paragraph pwmdr1 = new Paragraph();
-                       PdfPTable wmdrTable1 = new PdfPTable(5);
-                       float[] wmdrWidths1 = new float[] { 1f, 1f, 1f, 1f, 1f };
+					Paragraph pwmdr1 = new Paragraph();
+					PdfPTable wmdrTable1 = new PdfPTable(5);
+					float[] wmdrWidths1 = new float[] { 1f, 1f, 1f, 1f, 1f };
 
-                       // if (od.getQuotationMDRRate().getIncludeWallet().equals("Yes"))
-                       // {
-                       discounttab.setHorizontalAlignment(Element.ALIGN_LEFT);
-                       if (odList.size() > 0) {
+					// if (od.getQuotationMDRRate().getIncludeWallet().equals("Yes"))
+					// {
+					discounttab.setHorizontalAlignment(Element.ALIGN_LEFT);
+					if (odList.size() > 0) {
 
-                             pdfDoc.add(pwmdr1);
-                             pdfDoc.add(p5);
-                              wmdrTable1.setWidths(wmdrWidths1);
-                              wmdrTable1.setWidthPercentage(100f);
-                       wmdrTable1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-                              wmdrTable1.getDefaultCell().disableBorderSide(15);
-                              wmdrTable1.getDefaultCell().enableBorderSide(2);
-                              wmdrTable1.getDefaultCell().setBorderColor(new BaseColor(200, 224, 230));
-                              wmdrTable1.getDefaultCell().setPaddingBottom(3f);
-                              wmdrTable1.getDefaultCell().setBackgroundColor(new BaseColor(0, 91, 170));
-                             wmdrTable1.addCell(new Phrase("Product", fontWhite));
-                             wmdrTable1.addCell(new Phrase("Tng EComm", fontWhite));
-                             wmdrTable1.addCell(new Phrase("Tng QR", fontWhite));
-                             wmdrTable1.addCell(new Phrase("Shopeepay EComm", fontWhite));
-                             wmdrTable1.addCell(new Phrase("Shopeepay QR", fontWhite));
+						pdfDoc.add(pwmdr1);
+						pdfDoc.add(p5);
+						wmdrTable1.setWidths(wmdrWidths1);
+						wmdrTable1.setWidthPercentage(100f);
+						wmdrTable1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+						wmdrTable1.getDefaultCell().disableBorderSide(15);
+						wmdrTable1.getDefaultCell().enableBorderSide(2);
+						wmdrTable1.getDefaultCell().setBorderColor(new BaseColor(200, 224, 230));
+						wmdrTable1.getDefaultCell().setPaddingBottom(3f);
+						wmdrTable1.getDefaultCell().setBackgroundColor(new BaseColor(0, 91, 170));
+						wmdrTable1.addCell(new Phrase("Product", fontWhite));
+						wmdrTable1.addCell(new Phrase("Tng EComm", fontWhite));
+						wmdrTable1.addCell(new Phrase("Tng QR", fontWhite));
+						wmdrTable1.addCell(new Phrase("Shopeepay EComm", fontWhite));
+						wmdrTable1.addCell(new Phrase("Shopeepay QR", fontWhite));
 
-                              wmdrTable1.getDefaultCell().setBackgroundColor(new BaseColor(255, 255, 255));
-                              discounttab.setHorizontalAlignment(Element.ALIGN_LEFT);
+						wmdrTable1.getDefaultCell().setBackgroundColor(new BaseColor(255, 255, 255));
+						discounttab.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-                              image.scaleAbsolute(55f, 18f);
-                              image.setAlignment(Element.ALIGN_LEFT);
-                              cellxysign.addElement(new Paragraph("\n"));
-                              cellxysign.addElement(image);
-                              cellxysign.disableBorderSide(15);
-                              pdfsign.addCell(cellxysign);
+						image.scaleAbsolute(55f, 18f);
+						image.setAlignment(Element.ALIGN_LEFT);
+						cellxysign.addElement(new Paragraph("\n"));
+						cellxysign.addElement(image);
+						cellxysign.disableBorderSide(15);
+						pdfsign.addCell(cellxysign);
 
-                             for (OrderLines od : odList) {
-                                    if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                           wmdrTable.getDefaultCell().disableBorderSide(15);
-                                    } else {
+						for (OrderLines od : odList) {
+							if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+								wmdrTable.getDefaultCell().disableBorderSide(15);
+							} else {
 
-                                          if (od.getQuotationEzysplitMDRRate() != null) {
+								if (od.getQuotationEzysplitMDRRate() != null) {
 
-                                                 /*
-                                                 * URL grabPayPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/grabpay.png"); Image
-                                                 * gpimage = Image.getInstance(grabPayPath); gpimage.scaleAbsolute(11f, 4f);
-                                                 * gpimage.setAlignment(Element.ALIGN_LEFT); wmdrTable.addCell(gpimage);
-                                                 */
+									/*
+									 * URL grabPayPath =
+									 * getClass().getClassLoader().getResource("/assets/images/grabpay.png"); Image
+									 * gpimage = Image.getInstance(grabPayPath); gpimage.scaleAbsolute(11f, 4f);
+									 * gpimage.setAlignment(Element.ALIGN_LEFT); wmdrTable.addCell(gpimage);
+									 */
 
-                                                discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                                                 wmdrTable1.addCell(
-                                                              new Phrase(od.getQuotationEzysplitMDRRate().getProductType(), fontmoh4));
+									discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
+									wmdrTable1.addCell(
+											new Phrase(od.getQuotationEzysplitMDRRate().getProductType(), fontmoh4));
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                                        wmdrTable1.addCell(new Phrase("NILL", fontmoh4));
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+										wmdrTable1.addCell(new Phrase("NILL", fontmoh4));
 
-                                                 }
+									}
 
-                                                 else {
-                                                        wmdrTable1.addCell(new Phrase(
-                                                              String.valueOf(od.getQuotationEzysplitMDRRate().getTngMDREcomm()) + "%",
-                                                                     fontmoh4));
-                                                 }
+									else {
+										wmdrTable1.addCell(new Phrase(
+												String.valueOf(od.getQuotationEzysplitMDRRate().getTngMDREcomm()) + "%",
+												fontmoh4));
+									}
 
-                                                 wmdrTable1.addCell(new Phrase(
-                                                        String.valueOf(od.getQuotationEzysplitMDRRate().getTngMDRQR()) + "%",
-                                                              fontmoh4));
+									wmdrTable1.addCell(new Phrase(
+											String.valueOf(od.getQuotationEzysplitMDRRate().getTngMDRQR()) + "%",
+											fontmoh4));
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                                        wmdrTable1.addCell(new Phrase("NILL", fontmoh4));
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+										wmdrTable1.addCell(new Phrase("NILL", fontmoh4));
 
-                                                 }
+									}
 
-                                                 else {
-                                                        wmdrTable1.addCell(new Phrase(
-                                                              String.valueOf(od.getQuotationEzysplitMDRRate().getShopeepayMDREcomm())
-                                                                                  + "%",
-                                                                     fontmoh4));
-                                                 }
+									else {
+										wmdrTable1.addCell(new Phrase(
+												String.valueOf(od.getQuotationEzysplitMDRRate().getShopeepayMDREcomm())
+														+ "%",
+												fontmoh4));
+									}
 
-                                                 wmdrTable1.addCell(new Phrase(
-                                                        String.valueOf(od.getQuotationEzysplitMDRRate().getShopeepayMDRQR()) + "%",
-                                                              fontmoh4));
+									wmdrTable1.addCell(new Phrase(
+											String.valueOf(od.getQuotationEzysplitMDRRate().getShopeepayMDRQR()) + "%",
+											fontmoh4));
 
-                                                 /*
-                                                 * if (od.getQuotationEzysplitMDRRate().getGrabSettlement() !=
-                                                 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase("T + " +
-                                                 * String.valueOf(od.getQuotationEzysplitMDRRate().getGrabSettlement()),
-                                                 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 */
+									/*
+									 * if (od.getQuotationEzysplitMDRRate().getGrabSettlement() !=
+									 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase("T + " +
+									 * String.valueOf(od.getQuotationEzysplitMDRRate().getGrabSettlement()),
+									 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 */
 
-                                               discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
+									discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                                                 /*
-                                                 * URL boostPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/boost.png"); Image
-                                                 * bimage = Image.getInstance(boostPath); bimage.scaleAbsolute(11f, 4f);
-                                                 * bimage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(bimage);
-                                                 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT); wmdrTable.addCell(
-                                                 * new Phrase(String.valueOf(od.getQuotationEzysplitMDRRate().getBoostMDR()) +
-                                                 * "%", fontmoh4)); if (od.getQuotationEzysplitMDRRate().getBoostSettlement() !=
-                                                 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationEzysplitMDRRate().getBoostSettlement()),
-                                                 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 * 
-                                                  * discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
-                                                 * 
-                                                  * URL fpxPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/fpx.png"); Image
-                                                 * fpximage = Image.getInstance(fpxPath); fpximage.scaleAbsolute(11f, 4f);
-                                                 * fpximage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(fpximage);
-                                                 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                                                 * wmdrTable.addCell(new Phrase( "RM" +
-                                                 * od.getQuotationEzysplitMDRRate().getfPXMDR_RM() + " or " +
-                                                 * od.getQuotationEzysplitMDRRate().getfPXMDR_Percent() +
-                                                 * "% whichever is higher", fontmoh4)); if
-                                                 * (od.getQuotationEzysplitMDRRate().getFpxSettlement() !=
-                                                 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationEzysplitMDRRate().getFpxSettlement()),
-                                                 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 */
+									/*
+									 * URL boostPath =
+									 * getClass().getClassLoader().getResource("/assets/images/boost.png"); Image
+									 * bimage = Image.getInstance(boostPath); bimage.scaleAbsolute(11f, 4f);
+									 * bimage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(bimage);
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT); wmdrTable.addCell(
+									 * new Phrase(String.valueOf(od.getQuotationEzysplitMDRRate().getBoostMDR()) +
+									 * "%", fontmoh4)); if (od.getQuotationEzysplitMDRRate().getBoostSettlement() !=
+									 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationEzysplitMDRRate().getBoostSettlement()),
+									 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 * 
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
+									 * 
+									 * URL fpxPath =
+									 * getClass().getClassLoader().getResource("/assets/images/fpx.png"); Image
+									 * fpximage = Image.getInstance(fpxPath); fpximage.scaleAbsolute(11f, 4f);
+									 * fpximage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(fpximage);
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
+									 * wmdrTable.addCell(new Phrase( "RM" +
+									 * od.getQuotationEzysplitMDRRate().getfPXMDR_RM() + " or " +
+									 * od.getQuotationEzysplitMDRRate().getfPXMDR_Percent() +
+									 * "% whichever is higher", fontmoh4)); if
+									 * (od.getQuotationEzysplitMDRRate().getFpxSettlement() !=
+									 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationEzysplitMDRRate().getFpxSettlement()),
+									 * fontmoh4)); } else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 */
 
-                                          } else {
-                                                 /*
-                                                 * URL grabPayPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/grabpay.png"); Image
-                                                 * gpimage = Image.getInstance(grabPayPath); gpimage.scaleAbsolute(11f, 4f);
-                                                 * gpimage.setAlignment(Element.ALIGN_LEFT); wmdrTable.addCell(gpimage);
-                                                 */
+								} else {
+									/*
+									 * URL grabPayPath =
+									 * getClass().getClassLoader().getResource("/assets/images/grabpay.png"); Image
+									 * gpimage = Image.getInstance(grabPayPath); gpimage.scaleAbsolute(11f, 4f);
+									 * gpimage.setAlignment(Element.ALIGN_LEFT); wmdrTable.addCell(gpimage);
+									 */
 
-                                                 // discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                                                 wmdrTable1.addCell(new Phrase(od.getQuotationMDRRate().getProductType(), fontmoh4));
+									// discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
+									wmdrTable1.addCell(new Phrase(od.getQuotationMDRRate().getProductType(), fontmoh4));
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                                        wmdrTable1.addCell(new Phrase("NILL", fontmoh4));
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+										wmdrTable1.addCell(new Phrase("NILL", fontmoh4));
 
-                                                 } else {
+									} else {
 
-                                                        wmdrTable1.addCell(new Phrase(
-                                                                   String.valueOf(od.getQuotationMDRRate().getTngMDREcomm()) + "%",
-                                                                     fontmoh4));
-                                                 }
-                                                 wmdrTable1.addCell(new Phrase(
-                                                               String.valueOf(od.getQuotationMDRRate().getTngMDRQR()) + "%", fontmoh4));
+										wmdrTable1.addCell(new Phrase(
+												String.valueOf(od.getQuotationMDRRate().getTngMDREcomm()) + "%",
+												fontmoh4));
+									}
+									wmdrTable1.addCell(new Phrase(
+											String.valueOf(od.getQuotationMDRRate().getTngMDRQR()) + "%", fontmoh4));
 
-                                                 if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
-                                                        wmdrTable1.addCell(new Phrase("NILL", fontmoh4));
+									if (od.getProduct().getProductType().equalsIgnoreCase("EZYMOTO")) {
+										wmdrTable1.addCell(new Phrase("NILL", fontmoh4));
 
-                                                 }
+									}
 
-                                                 else {
-                                                        wmdrTable1.addCell(new Phrase(
-                                                              String.valueOf(od.getQuotationMDRRate().getShopeepayMDREcomm()) + "%",
-                                                                     fontmoh4));
-                                                 }
+									else {
+										wmdrTable1.addCell(new Phrase(
+												String.valueOf(od.getQuotationMDRRate().getShopeepayMDREcomm()) + "%",
+												fontmoh4));
+									}
 
-                                                 wmdrTable1.addCell(new Phrase(
-                                                          String.valueOf(od.getQuotationMDRRate().getShopeepayMDRQR()) + "%",
-                                                              fontmoh4));
+									wmdrTable1.addCell(new Phrase(
+											String.valueOf(od.getQuotationMDRRate().getShopeepayMDRQR()) + "%",
+											fontmoh4));
 
-                                                 /*
-                                                 * if (od.getQuotationMDRRate().getGrabSettlement() != Integer.parseInt("0")) {
-                                                 * wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationMDRRate().getGrabSettlement()), fontmoh4)); }
-                                                 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 */
-                                               discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
+									/*
+									 * if (od.getQuotationMDRRate().getGrabSettlement() != Integer.parseInt("0")) {
+									 * wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationMDRRate().getGrabSettlement()), fontmoh4)); }
+									 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 */
+									discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                                                 /*
-                                                 * URL boostPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/boost.png"); Image
-                                                 * bimage = Image.getInstance(boostPath); bimage.scaleAbsolute(11f, 4f);
-                                                 * bimage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(bimage);
-                                                 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT); wmdrTable.addCell(
-                                                 * new Phrase(String.valueOf(od.getQuotationMDRRate().getBoostMDR()) + "%",
-                                                 * fontmoh4)); if (od.getQuotationMDRRate().getBoostSettlement() !=
-                                                 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationMDRRate().getBoostSettlement()), fontmoh4)); }
-                                                 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 * 
-                                                  * discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
-                                                 * 
-                                                  * URL fpxPath =
-                                                 * getClass().getClassLoader().getResource("/assets/images/fpx.png"); Image
-                                                 * fpximage = Image.getInstance(fpxPath); fpximage.scaleAbsolute(11f, 4f);
-                                                 * fpximage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(fpximage);
-                                                 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                                                 * wmdrTable.addCell(new Phrase( "RM" + od.getQuotationMDRRate().getfPXMDR_RM()
-                                                 * + " or " + od.getQuotationMDRRate().getfPXMDR_Percent() +
-                                                 * "% whichever is higher", fontmoh4)); if
-                                                 * (od.getQuotationMDRRate().getFpxSettlement() != Integer.parseInt("0")) {
-                                                 * wmdrTable.addCell(new Phrase( "T + " +
-                                                 * String.valueOf(od.getQuotationMDRRate().getFpxSettlement()), fontmoh4)); }
-                                                 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
-                                                 * 
-                                                  * break;
-                                                 */
-                                          } // ELSE Condition
+									/*
+									 * URL boostPath =
+									 * getClass().getClassLoader().getResource("/assets/images/boost.png"); Image
+									 * bimage = Image.getInstance(boostPath); bimage.scaleAbsolute(11f, 4f);
+									 * bimage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(bimage);
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT); wmdrTable.addCell(
+									 * new Phrase(String.valueOf(od.getQuotationMDRRate().getBoostMDR()) + "%",
+									 * fontmoh4)); if (od.getQuotationMDRRate().getBoostSettlement() !=
+									 * Integer.parseInt("0")) { wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationMDRRate().getBoostSettlement()), fontmoh4)); }
+									 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 * 
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_CENTER);
+									 * 
+									 * URL fpxPath =
+									 * getClass().getClassLoader().getResource("/assets/images/fpx.png"); Image
+									 * fpximage = Image.getInstance(fpxPath); fpximage.scaleAbsolute(11f, 4f);
+									 * fpximage.setAlignment(Element.ALIGN_CENTER); wmdrTable.addCell(fpximage);
+									 * discounttab.setHorizontalAlignment(Element.ALIGN_RIGHT);
+									 * wmdrTable.addCell(new Phrase( "RM" + od.getQuotationMDRRate().getfPXMDR_RM()
+									 * + " or " + od.getQuotationMDRRate().getfPXMDR_Percent() +
+									 * "% whichever is higher", fontmoh4)); if
+									 * (od.getQuotationMDRRate().getFpxSettlement() != Integer.parseInt("0")) {
+									 * wmdrTable.addCell(new Phrase( "T + " +
+									 * String.valueOf(od.getQuotationMDRRate().getFpxSettlement()), fontmoh4)); }
+									 * else { wmdrTable.addCell(new Phrase("", fontmoh4)); }
+									 * 
+									 * break;
+									 */
+								} // ELSE Condition
 
-                                          // }
-                                    }
-                             } // for (OrderLines od : odList)
+								// }
+							}
+						} // for (OrderLines od : odList)
 
-                       } // if (odList.size() > 0)
+					} // if (odList.size() > 0)
 
-                       pdfDoc.add(wmdrTable1);
-                }
-          }
+					pdfDoc.add(wmdrTable1);
+				}
+			}
 
-			
-			
-			
-			//tng &shp end
-			
-			
-			
+			// tng &shp end
+
 			pdfDoc.newPage();
 			Phrase notes = new Phrase();
 			notes.add(new Chunk("Notes: ", normalFont));
@@ -1875,8 +1846,10 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 			phraseTNC.add(Chunk.NEWLINE);
 			phraseTNC.add(new Chunk("Yours faithfully,", font5));
 			phraseTNC.add(Chunk.NEWLINE);
-			//phraseTNC.add(new Chunk("Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa Sdn. Bhd.) (1105429-U)", font5));
-			phraseTNC.add(new Chunk("Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa Sdn. Bhd.) 201401029343 (1105429-U)", font5));
+			// phraseTNC.add(new Chunk("Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa
+			// Sdn. Bhd.) (1105429-U)", font5));
+			phraseTNC.add(new Chunk(
+					"Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa Sdn. Bhd.) 201401029343 (1105429-U)", font5));
 			phraseTNC.add(Chunk.NEWLINE);
 			phraseTNC.add(new Chunk(
 					"[This quotation is computer generated and requires no signature. Please note that terms and conditions of this quotation become legally binding between you and us as soon as you sign and return the copy of this letter]",
@@ -2194,20 +2167,20 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 
 		try {
 
-
 			String currdate = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
-
 
 			String invoiceno = "PRO" + quote.getId() + currdate;
 
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");// here u can mention whatever the
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");// here u can mention whatever the
 																					// format u want like dd/mm/yyyy etc
 
 			String date = LocalDate.now().format(formatter);
 
 			Calendar calnder = Calendar.getInstance();
 
-			String createdon = quote.getCreatedOn().format(formatter);
+			SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+			Date createdOn = quote.getCreatedOn();
+			String createdon = sdf1.format(createdOn.getTime());
 
 			File fPDFFilePath = new File(pdfFilePath);
 
@@ -2279,48 +2252,33 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 //
 //			phraseCompany.add(new Chunk("Trade Reg. Nr. 1105429-U", normalFont));
 //			phraseCompany.add(Chunk.NEWLINE);
-			
-			
+
 			phraseCompany.add(new Chunk("17-109, Equatorial Plaza,", normalFont));
-            phraseCompany.add(Chunk.NEWLINE);
+			phraseCompany.add(Chunk.NEWLINE);
 
+			/*
+			 * phraseCompany.add(new Chunk("Changkat Semantan,", normalFont));
+			 * phraseCompany.add(Chunk.NEWLINE);
+			 */
 
+			phraseCompany.add(new Chunk("Jalan Sultan Ismail,", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
 
-           /*
-             * phraseCompany.add(new Chunk("Changkat Semantan,", normalFont));
-             * phraseCompany.add(Chunk.NEWLINE);
-             */
+			phraseCompany.add(new Chunk("Kuala Lumpur 50250  MY.", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
 
+			phraseCompany.add(new Chunk("Contact No: 60 3 2714 5308", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
 
+			phraseCompany.add(new Chunk("Contact Email: finance@gomobi.io", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
 
-           phraseCompany.add(new Chunk("Jalan Sultan Ismail,", normalFont));
-            phraseCompany.add(Chunk.NEWLINE);
+			phraseCompany.add(new Chunk("Web: www.gomobi.io", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
 
-
-
-           phraseCompany.add(new Chunk("Kuala Lumpur 50250  MY.", normalFont));
-            phraseCompany.add(Chunk.NEWLINE);
-
-
-
-           phraseCompany.add(new Chunk("Contact No: 60 3 2714 5308", normalFont));
-            phraseCompany.add(Chunk.NEWLINE);
-
-
-
-           phraseCompany.add(new Chunk("Contact Email: finance@gomobi.io", normalFont));
-            phraseCompany.add(Chunk.NEWLINE);
-
-
-
-           phraseCompany.add(new Chunk("Web: www.gomobi.io", normalFont));
-            phraseCompany.add(Chunk.NEWLINE);
-
-
-
-           /* phraseCompany.add(new Chunk("Trade Reg. Nr. 1105429-U", normalFont)); */
-            phraseCompany.add(new Chunk("Trade Reg. Nr.201401029343 (1105429-U)", normalFont));
-            phraseCompany.add(Chunk.NEWLINE);
+			/* phraseCompany.add(new Chunk("Trade Reg. Nr. 1105429-U", normalFont)); */
+			phraseCompany.add(new Chunk("Trade Reg. Nr.201401029343 (1105429-U)", normalFont));
+			phraseCompany.add(Chunk.NEWLINE);
 
 			celladress.disableBorderSide(15);
 			celladress.addElement(phraseCompany);
@@ -2353,7 +2311,6 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 			merchantadress.add(new Chunk("BILL TO", boldFont));
 			merchantadress.add(Chunk.NEWLINE);
 
-
 			merchantadress.add(new Chunk(String.format("%s,", quote.getCompanyName()), boldFont));
 
 			merchantadress.add(Chunk.NEWLINE);
@@ -2363,20 +2320,16 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 					normalFont));
 			merchantadress.add(Chunk.NEWLINE);
 
-
 			merchantadress.add(new Chunk(String.format("%s,", quote.getContact().getLastName()), normalFont));
 
-		
 			merchantadress.add(Chunk.NEWLINE);
 
 			merchantadress
 					.add(new Chunk(String.format("Phone Number: 06 %s,", quote.getUserId().toString()), normalFont));
 			merchantadress.add(Chunk.NEWLINE);
 
-
 			merchantadress.add(new Chunk(String.format("Email Id: %s.", quote.getContact().getEmail()), normalFont));
 			merchantadress.add(Chunk.NEWLINE);
-
 
 			cell21.addElement(merchantadress);
 			pdf2.addCell(cell21);
@@ -2395,10 +2348,9 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 
 			calnder.add(Calendar.DATE, 3);
 
-
 			invoice.add(new Chunk("DUE DATE       ", boldFont));
 
-			invoice.add(new Chunk(new SimpleDateFormat("dd.MM.yyyy").format(calnder.getTime()), normalFont));
+			invoice.add(new Chunk(date, normalFont));
 			invoice.add(Chunk.NEWLINE);
 
 			Paragraph para22 = new Paragraph();
@@ -2430,7 +2382,6 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 
 			PdfPCell cell = new PdfPCell(new Phrase("ACTIVITY", font));
 
-
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setPaddingLeft(40f);
@@ -2441,7 +2392,6 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 			cell.setBorder(0);
 			cell.setMinimumHeight(18f);
 			amounttable.addCell(cell);
-
 
 			Font otherTableFont = new Font(FontFamily.HELVETICA, 8, Font.NORMAL, BaseColor.WHITE);
 
@@ -2465,7 +2415,6 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 			AMOUNT.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			AMOUNT.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			amounttable.addCell(AMOUNT);
-
 
 			Font tddatefont = new Font(FontFamily.HELVETICA, 8, Font.BOLD, BaseColor.BLACK);
 			Font tdtextfont = new Font(FontFamily.HELVETICA, 8, Font.NORMAL, BaseColor.BLACK);
@@ -2563,14 +2512,11 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 
 			document.add(new DottedLineSeparator());
 
-
 			Font balduefont = new Font(FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.LIGHT_GRAY);
 			Font myrfont = new Font(FontFamily.HELVETICA, 12, Font.BOLD, new BaseColor(0, 91, 170));
 
-
 			double discount = quote.getDiscountPrice();
 			double totaldue = subtotal - discount;
-
 
 			float[] widthFloat = new float[] { 300f, 90f };
 			PdfPTable amttable = new PdfPTable(widthFloat);
@@ -2581,7 +2527,6 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 			PdfPCell amtcell2 = new PdfPCell(new Phrase(String.valueOf(String.format("%s\n%s\n%s",
 					service.FormatAmountFromDoubleToString(subtotal), service.FormatAmountFromDoubleToString(discount),
 					service.FormatAmountFromDoubleToString(totaldue))), myrfont));
-
 
 			// PdfPCell amtcell2 = new PdfPCell(new
 			// Phrase(String.valueOf(subtotal)+"\n"+String.valueOf(discount)+"\n"+String.valueOf(totaldue),myrfont));
@@ -4628,7 +4573,8 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 		text3i.add("Telephone : 0122902076");
 		text3i.add(Chunk.NEWLINE);
 
-		//text3i.add("Address : Suite 07-01, Wisma UOA Damansara II, Damansara Heights, W.P.Kuala Lumpur");
+		// text3i.add("Address : Suite 07-01, Wisma UOA Damansara II, Damansara Heights,
+		// W.P.Kuala Lumpur");
 		text3i.add("Address : 17-109, Equatorial Plaza, Jalan Sultan Ismail, 50250 Kuala Lumpur, Malaysia");
 		text3i.add(Chunk.NEWLINE);
 		text3i.add("Email : cs@gomobi.io");
@@ -4665,7 +4611,7 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 		merchantagreementa.add(Chunk.NEWLINE);
 		merchantagreementa.add(
 //				"(A)	Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa Sdn. Bhd.) Company no: 1105429-U), incorporated in and under the laws of Malaysia with registered address at Suite 2.7, Level 2, Block C Plaza Damansara, 45 Jalan Medan Setia 1, Bukit Damansara, Kuala Lumpur, Wilayah Persekutuan. (hereinafter called �Mobiversa�);  AND ");
-				"(A)    Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa Sdn. Bhd.) Company no: 201401029343 (1105429-U), incorporated in and under the laws of Malaysia with registered address at Suite 2.7, Level 2, Block C Plaza Damansara, 45 Jalan Medan Setia 1, Bukit Damansara, Kuala Lumpur, Wilayah Persekutuan. (hereinafter called �Mobiversa�);  AND ");	
+				"(A)    Mobi Asia Sdn. Bhd. (Formerly known as Mobiversa Sdn. Bhd.) Company no: 201401029343 (1105429-U), incorporated in and under the laws of Malaysia with registered address at Suite 2.7, Level 2, Block C Plaza Damansara, 45 Jalan Medan Setia 1, Bukit Damansara, Kuala Lumpur, Wilayah Persekutuan. (hereinafter called �Mobiversa�);  AND ");
 		merchantagreementa.add(Chunk.NEWLINE);
 		merchantagreementa.add(
 				"(B)	The party and / or parties described in Merchant Application Form hereto and this Agreement (hereinafter called �the Merchant�). Whereas: -");
@@ -5811,8 +5757,7 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
 	@Override
 	public void generatedAcceptedQuotation(QuotationRequestData quotationRequestData, Quotation quotation,
 			HttpServletRequest req) {
-		
-		
+
 		logger.info("generatedAcceptedQuotation >> ");
 
 		String originalQuotationPath = Constants.getQuotationPath();

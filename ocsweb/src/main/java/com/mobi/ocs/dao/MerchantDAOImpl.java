@@ -241,7 +241,7 @@ public class MerchantDAOImpl implements MerchantDAO {
 				MerchantOrderMobileResponseData item = new MerchantOrderMobileResponseData();
 				item.setId(String.valueOf(quotation.getId()));
 
-				item.setCreatedOn(quotation.getCreatedOn().format(DateTimeFormatter.ofPattern("dd MMM, yyyy")));
+				item.setCreatedOn(quotation.getCreatedOn());
 
 				if (quotation.getOrderLines().size() > 0) {
 					String prodcutName = quotation.getOrderLines().get(0).getProduct().getProductName();

@@ -1,12 +1,9 @@
 package com.mobi.ocs.dao;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.persistence.NoResultException;
 
@@ -17,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.mobi.ocs.dto.CommonResponseData;
 import com.mobi.ocs.dto.IssueQuotationResponseDataModel;
 import com.mobi.ocs.entity.AccountType;
@@ -42,8 +38,8 @@ import com.mobi.ocs.entity.OrderNotes;
 import com.mobi.ocs.entity.OrderType;
 import com.mobi.ocs.entity.Payment;
 import com.mobi.ocs.entity.PaymentType;
-import com.mobi.ocs.entity.PendingQuotationMDRRate;
 import com.mobi.ocs.entity.PendingQuotationEzySplitMDRRate;
+import com.mobi.ocs.entity.PendingQuotationMDRRate;
 import com.mobi.ocs.entity.Product;
 import com.mobi.ocs.entity.ProductType;
 import com.mobi.ocs.entity.Profoma;
@@ -63,12 +59,9 @@ import com.mobi.ocs.entity.UmobileState;
 import com.mobi.ocs.entity.UmobileTown;
 import com.mobi.ocs.entity.UserDetail;
 import com.mobi.ocs.entity.WalletRate;
-import com.mobi.ocs.entity.dotnetOcs.MerchantDetails;
 import com.mobi.ocs.modal.DiscountPriceRequestData;
 import com.mobi.ocs.modal.OrderDirectorResponseData;
 import com.mobi.ocs.modal.OrderNotesResponseData;
-import com.mobi.ocs.modal.PendingQuotationMDRRatesRequestData;
-import com.mobi.ocs.modal.ProductNameData;
 import com.mobi.ocs.modal.RollbackRequestData;
 
 @Repository
@@ -93,7 +86,7 @@ public class QuotationDAOImpl implements QuotationDAO {
 
 		try {
 
-			LocalDateTime currentDateTime = LocalDateTime.now();
+			Date currentDateTime = new Date();
 			if (quotation.getCreatedOn() == null) {
 				quotation.setCreatedOn(currentDateTime);
 			}
@@ -446,7 +439,7 @@ public class QuotationDAOImpl implements QuotationDAO {
 	public void SaveHostRate(HostRate hostRate) {
 		Session session = sessionFactory.getCurrentSession();
 
-		LocalDateTime now = LocalDateTime.now();
+		Date now = new Date();
 		hostRate.setCreatedOn(now);
 		session.save(hostRate);
 	}
@@ -650,7 +643,7 @@ public class QuotationDAOImpl implements QuotationDAO {
 				quote.setContact(null);
 			}
 
-			LocalDateTime currentDateTime = LocalDateTime.now();
+			Date currentDateTime = new Date();
 			quote.setLastModified(currentDateTime);
 
 			session.update(quote);
@@ -745,7 +738,7 @@ public class QuotationDAOImpl implements QuotationDAO {
 
 	@Override
 	public void SaveNotes(OrderNotes notes, String orderId, String from) {
-		LocalDateTime now = LocalDateTime.now();
+		Date now = new Date();
 		Session session = sessionFactory.getCurrentSession();
 
 		Order order = session.load(Order.class, Integer.parseInt(orderId));
@@ -1415,7 +1408,7 @@ public class QuotationDAOImpl implements QuotationDAO {
 	public void SaveWalletRate(WalletRate walletRate) {
 		Session session = sessionFactory.getCurrentSession();
 
-		LocalDateTime now = LocalDateTime.now();
+		Date now = new Date();
 		walletRate.setCreatedOn(now);
 		session.save(walletRate);
 	}

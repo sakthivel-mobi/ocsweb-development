@@ -144,7 +144,11 @@ body {
 
 									<tr>
 										<td>${tempRequests.id}</td>
-										<td>${tempRequests.date}</td>
+										<%-- <td>${tempRequests.date}</td> --%>
+										<fmt:parseDate value="${tempRequests.date}"
+											pattern="yyyy-MM-dd HH:mm:ss" var="myDate" />
+										<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss"
+												value="${myDate}" /></td>
 										<td>${tempRequests.businessName}</td>
 										<td>${tempRequests.email}</td>
 										<td>${tempRequests.mobileNumber}</td>
