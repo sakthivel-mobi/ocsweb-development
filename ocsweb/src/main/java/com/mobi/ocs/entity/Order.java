@@ -108,6 +108,9 @@ public class Order {
 	@Column(name = "websiteUrl")
 	private String websiteUrl;
 
+	@Column(name = "merchantPlatform")
+	private String merchantPlatform;
+
 	@Column(name = "currentAcquirer")
 	private String currentAcquirer;
 
@@ -476,6 +479,14 @@ public class Order {
 
 	public void setWebsiteUrl(String websiteUrl) {
 		this.websiteUrl = websiteUrl;
+	}
+
+	public String getMerchantPlatform() {
+		return merchantPlatform;
+	}
+
+	public void setMerchantPlatform(String merchantPlatform) {
+		this.merchantPlatform = merchantPlatform;
 	}
 
 	public String getCurrentAcquirer() {

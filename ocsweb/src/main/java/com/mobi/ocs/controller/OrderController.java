@@ -153,6 +153,7 @@ public class OrderController {
 			List<UmobileCountry> CountryList = quotationService.GetCountryList();
 			List<Salutation> salutationList = quotationService.GetSalutationList();
 			List<Bank> bankList = quotationService.GetBankList();
+			
 
 			model.addAttribute("orderLineList", orderLines);
 			model.addAttribute("merchantIdTypeList", merchantIdTypeList);

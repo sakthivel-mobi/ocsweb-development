@@ -477,8 +477,17 @@
 									<div class="col-sm-6 col-md-2 form-floating mb-3">
 										<div class="mb-3">
 											<form:label path="websiteUrl" class="form-label">Website URL</form:label>
+											<% System.out.println("Hello World"); %>
 											<form:input path="websiteUrl" class="form-control"
 												placeholder="Website URL" />
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-2 form-floating mb-3">
+										<div class="mb-3">
+											<form:label path="merchantPlatform" class="form-label">Merchant Platform</form:label>
+									<% System.out.println("Hello World"); %>
+											<form:input var="hello" path="merchantPlatform" class="form-control"
+												placeholder="Merchant Platform" />
 										</div>
 									</div>
 
@@ -1894,6 +1903,7 @@
 					const id = document.createElement("td")
 					id.innerText = count
 					const sendDate = document.createElement("td")
+					/* sendDate.innerText = item.sendDate */
 					sendDate.innerText = moment(item.sendDate).format("DD/MM/YYYY HH:mm:ss")
 					const from = document.createElement("td")
 					from.innerText = item.from

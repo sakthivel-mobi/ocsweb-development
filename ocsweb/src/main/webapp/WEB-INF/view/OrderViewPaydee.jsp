@@ -321,6 +321,25 @@
 							</div>
 							<div class="col-sm-3  form-floating mb-3">
 								<div class="mb-3">
+									<form:label path="merchantPlatform" class="form-label">Merchant Platform</form:label>
+									<form:select path="merchantPlatform" class="form-select"
+										placeholder="Merchant Platform">
+										<form:option value="">-----------Select-----------</form:option>
+										<form:option value="WOOCOMMERCE">WOOCOMMERCE</form:option>
+										<form:option value="OPENCART">OPENCART</form:option>
+										<form:option value="PRESTASHOP">PRESTASHOP</form:option>
+										<form:option value="MAGENTO">MAGENTO</form:option>
+										<form:option value="SHOPIFY">SHOPIFY</form:option>
+										<form:option value="SITEGIANT">SITEGIANT</form:option>
+										<form:option value="EZEE">EZEE</form:option>
+										<form:option value="LARAVEL">LARAVEL</form:option>
+										<form:option value="CODEINGITER">CODEINGITER</form:option>
+										<form:option value="CORE PHP">CORE PHP</form:option>
+									</form:select>
+								</div>
+							</div>
+							<div class="col-sm-3  form-floating mb-3">
+								<div class="mb-3">
 									<form:label path="officeNo" class="form-label">Office No</form:label>
 									<form:input path="officeNo" class="form-control"
 										placeholder="Office No" />

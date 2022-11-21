@@ -7,7 +7,7 @@
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <link rel="icon" type="image/x-icon"
 	href="./resources/images/favicon/favicon.ico">
-	<link rel="icon" type="image/x-icon"
+<link rel="icon" type="image/x-icon"
 	href="../resources/images/favicon/favicon.ico">
 </head>
 <body>
@@ -17,7 +17,7 @@
 	<%-- <div style="float:left;padding:10px;width:15%;"><tiles:insertAttribute name="menu" /></div>  
         <div style="float:left;padding:10px;width:80%;border-left:1px solid pink;">   --%>
 	<div>
-		<tiles:insertAttribute name="body" />
+		<tiles:insertAttribute name="body"  />
 	</div>
 </body>
 </html>
